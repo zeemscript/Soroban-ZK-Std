@@ -1,7 +1,7 @@
 #![cfg(test)]
 
 use super::*;
-use soroban_sdk::{Env, U256};
+use soroban_sdk::{Bytes, Env, U256};
 
 #[test]
 fn test_valid_scalar_below_modulus() {
@@ -9,7 +9,6 @@ fn test_valid_scalar_below_modulus() {
     let contract_id = env.register(Verifier, ());
     let client = VerifierClient::new(&env, &contract_id);
 
-    // A small valid scalar (well below BN254 modulus)
     let val = U256::from_u128(&env, 42);
     assert!(client.check(&val));
 }
@@ -21,7 +20,8 @@ fn test_invalid_scalar_above_modulus() {
     let client = VerifierClient::new(&env, &contract_id);
 
     // U256::MAX is way above BN254 modulus — must be rejected
-    let val = U256::from_be_bytes(&env, &[0xff; 32]);
+    let bytes = Bytes::from_array(&env, &[0xff_u8; 32]);
+    let val = U256::from_be_bytes(&env, &bytes);
     assert!(!client.check(&val));
 }
 
@@ -47,6 +47,7 @@ fn test_modulus_itself_is_invalid() {
         0x5d, 0x97, 0x81, 0x6a, 0x91, 0x68, 0x71, 0xca, 0x8d, 0x3c, 0x20, 0x8c, 0x16, 0xd8, 0x7c,
         0xfd, 0x47,
     ];
-    let val = U256::from_be_bytes(&env, &modulus_bytes);
+    let bytes = Bytes::from_array(&env, &modulus_bytes);
+    let val = U256::from_be_bytes(&env, &bytes);
     assert!(!client.check(&val));
 }
