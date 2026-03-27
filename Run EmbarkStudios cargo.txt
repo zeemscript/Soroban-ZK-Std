@@ -1,0 +1,1486 @@
+Run EmbarkStudios/cargo-deny-action@v2
+/usr/bin/docker run --name ee0ecaa4d89882e47919b743acf76ef9aa3_a3f707 --label 845ee0 --workdir /github/workspace --rm -e "CARGO_TERM_COLOR" -e "INPUT_COMMAND" -e "INPUT_ARGUMENTS" -e "INPUT_COMMAND-ARGUMENTS" -e "INPUT_MANIFEST-PATH" -e "INPUT_LOG-LEVEL" -e "INPUT_RUST-VERSION" -e "INPUT_CREDENTIALS" -e "INPUT_SSH-KEY" -e "INPUT_SSH-KNOWN-HOSTS" -e "INPUT_USE-GIT-CLI" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -
+Default host: x86_64-unknown-linux-musl
+rustup home:  /usr/local/rustup
+installed toolchains
+--------------------
+1.85.0-x86_64-unknown-linux-musl (active, default)
+active toolchain
+----------------
+name: 1.85.0-x86_64-unknown-linux-musl
+active because: it's the default toolchain
+installed targets:
+  x86_64-unknown-linux-musl
+2026-03-27 02:54:00 [WARN] unable to find a config path, falling back to default config
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ahash-0.8.12/Cargo.toml:42:12
+   │
+42 │ license = "MIT OR Apache-2.0"
+   │            ━━━────━━━━━━━━━━
+   │            │      │
+   │            │      rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ ahash v0.8.12
+     └── hashbrown v0.13.2
+         ├── ark-ec v0.4.2
+         │   ├── ark-bls12-381 v0.4.0
+         │   │   └── soroban-env-host v25.0.1
+         │   │       └── soroban-sdk v25.3.0
+         │   │           ├── verifier-sample v0.1.0
+         │   │           └── zk-soroban v0.1.0
+         │   │               └── verifier-sample v0.1.0 (*)
+         │   ├── ark-bn254 v0.4.0
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         └── ark-poly v0.4.2
+             └── ark-ec v0.4.2 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ark-bls12-381-0.4.0/Cargo.toml:33:12
+   │
+33 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ ark-bls12-381 v0.4.0
+     └── soroban-env-host v25.0.1
+         └── soroban-sdk v25.3.0
+             ├── verifier-sample v0.1.0
+             └── zk-soroban v0.1.0
+                 └── verifier-sample v0.1.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ark-bn254-0.4.0/Cargo.toml:33:12
+   │
+33 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ ark-bn254 v0.4.0
+     └── soroban-env-host v25.0.1
+         └── soroban-sdk v25.3.0
+             ├── verifier-sample v0.1.0
+             └── zk-soroban v0.1.0
+                 └── verifier-sample v0.1.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ark-ec-0.4.2/Cargo.toml:36:12
+   │
+36 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ ark-ec v0.4.2
+     ├── ark-bls12-381 v0.4.0
+     │   └── soroban-env-host v25.0.1
+     │       └── soroban-sdk v25.3.0
+     │           ├── verifier-sample v0.1.0
+     │           └── zk-soroban v0.1.0
+     │               └── verifier-sample v0.1.0 (*)
+     ├── ark-bn254 v0.4.0
+     │   └── soroban-env-host v25.0.1 (*)
+     └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ark-ff-0.4.2/Cargo.toml:36:12
+   │
+36 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ ark-ff v0.4.2
+     ├── ark-bls12-381 v0.4.0
+     │   └── soroban-env-host v25.0.1
+     │       └── soroban-sdk v25.3.0
+     │           ├── verifier-sample v0.1.0
+     │           └── zk-soroban v0.1.0
+     │               └── verifier-sample v0.1.0 (*)
+     ├── ark-bn254 v0.4.0
+     │   └── soroban-env-host v25.0.1 (*)
+     ├── ark-ec v0.4.2
+     │   ├── ark-bls12-381 v0.4.0 (*)
+     │   ├── ark-bn254 v0.4.0 (*)
+     │   └── soroban-env-host v25.0.1 (*)
+     ├── ark-poly v0.4.2
+     │   └── ark-ec v0.4.2 (*)
+     └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ark-ff-asm-0.4.2/Cargo.toml:34:12
+   │
+34 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ ark-ff-asm v0.4.2
+     └── ark-ff v0.4.2
+         ├── ark-bls12-381 v0.4.0
+         │   └── soroban-env-host v25.0.1
+         │       └── soroban-sdk v25.3.0
+         │           ├── verifier-sample v0.1.0
+         │           └── zk-soroban v0.1.0
+         │               └── verifier-sample v0.1.0 (*)
+         ├── ark-bn254 v0.4.0
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ark-ec v0.4.2
+         │   ├── ark-bls12-381 v0.4.0 (*)
+         │   ├── ark-bn254 v0.4.0 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ark-poly v0.4.2
+         │   └── ark-ec v0.4.2 (*)
+         └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ark-ff-macros-0.4.2/Cargo.toml:34:12
+   │
+34 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ ark-ff-macros v0.4.2
+     └── ark-ff v0.4.2
+         ├── ark-bls12-381 v0.4.0
+         │   └── soroban-env-host v25.0.1
+         │       └── soroban-sdk v25.3.0
+         │           ├── verifier-sample v0.1.0
+         │           └── zk-soroban v0.1.0
+         │               └── verifier-sample v0.1.0 (*)
+         ├── ark-bn254 v0.4.0
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ark-ec v0.4.2
+         │   ├── ark-bls12-381 v0.4.0 (*)
+         │   ├── ark-bn254 v0.4.0 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ark-poly v0.4.2
+         │   └── ark-ec v0.4.2 (*)
+         └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ark-poly-0.4.2/Cargo.toml:36:12
+   │
+36 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ ark-poly v0.4.2
+     └── ark-ec v0.4.2
+         ├── ark-bls12-381 v0.4.0
+         │   └── soroban-env-host v25.0.1
+         │       └── soroban-sdk v25.3.0
+         │           ├── verifier-sample v0.1.0
+         │           └── zk-soroban v0.1.0
+         │               └── verifier-sample v0.1.0 (*)
+         ├── ark-bn254 v0.4.0
+         │   └── soroban-env-host v25.0.1 (*)
+         └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ark-serialize-0.4.2/Cargo.toml:34:12
+   │
+34 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ ark-serialize v0.4.2
+     ├── ark-bls12-381 v0.4.0
+     │   └── soroban-env-host v25.0.1
+     │       └── soroban-sdk v25.3.0
+     │           ├── verifier-sample v0.1.0
+     │           └── zk-soroban v0.1.0
+     │               └── verifier-sample v0.1.0 (*)
+     ├── ark-ec v0.4.2
+     │   ├── ark-bls12-381 v0.4.0 (*)
+     │   ├── ark-bn254 v0.4.0
+     │   │   └── soroban-env-host v25.0.1 (*)
+     │   └── soroban-env-host v25.0.1 (*)
+     ├── ark-ff v0.4.2
+     │   ├── ark-bls12-381 v0.4.0 (*)
+     │   ├── ark-bn254 v0.4.0 (*)
+     │   ├── ark-ec v0.4.2 (*)
+     │   ├── ark-poly v0.4.2
+     │   │   └── ark-ec v0.4.2 (*)
+     │   └── soroban-env-host v25.0.1 (*)
+     ├── ark-poly v0.4.2 (*)
+     └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ark-serialize-derive-0.4.2/Cargo.toml:35:12
+   │
+35 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ ark-serialize-derive v0.4.2
+     └── ark-serialize v0.4.2
+         ├── ark-bls12-381 v0.4.0
+         │   └── soroban-env-host v25.0.1
+         │       └── soroban-sdk v25.3.0
+         │           ├── verifier-sample v0.1.0
+         │           └── zk-soroban v0.1.0
+         │               └── verifier-sample v0.1.0 (*)
+         ├── ark-ec v0.4.2
+         │   ├── ark-bls12-381 v0.4.0 (*)
+         │   ├── ark-bn254 v0.4.0
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ark-ff v0.4.2
+         │   ├── ark-bls12-381 v0.4.0 (*)
+         │   ├── ark-bn254 v0.4.0 (*)
+         │   ├── ark-ec v0.4.2 (*)
+         │   ├── ark-poly v0.4.2
+         │   │   └── ark-ec v0.4.2 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ark-poly v0.4.2 (*)
+         └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ark-std-0.4.0/Cargo.toml:30:12
+   │
+30 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ ark-std v0.4.0
+     ├── ark-bls12-381 v0.4.0
+     │   └── soroban-env-host v25.0.1
+     │       └── soroban-sdk v25.3.0
+     │           ├── verifier-sample v0.1.0
+     │           └── zk-soroban v0.1.0
+     │               └── verifier-sample v0.1.0 (*)
+     ├── ark-bn254 v0.4.0
+     │   └── soroban-env-host v25.0.1 (*)
+     ├── ark-ec v0.4.2
+     │   ├── ark-bls12-381 v0.4.0 (*)
+     │   ├── ark-bn254 v0.4.0 (*)
+     │   └── soroban-env-host v25.0.1 (*)
+     ├── ark-ff v0.4.2
+     │   ├── ark-bls12-381 v0.4.0 (*)
+     │   ├── ark-bn254 v0.4.0 (*)
+     │   ├── ark-ec v0.4.2 (*)
+     │   ├── ark-poly v0.4.2
+     │   │   └── ark-ec v0.4.2 (*)
+     │   └── soroban-env-host v25.0.1 (*)
+     ├── ark-poly v0.4.2 (*)
+     └── ark-serialize v0.4.2
+         ├── ark-bls12-381 v0.4.0 (*)
+         ├── ark-ec v0.4.2 (*)
+         ├── ark-ff v0.4.2 (*)
+         ├── ark-poly v0.4.2 (*)
+         └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/autocfg-1.5.0/Cargo.toml:33:12
+   │
+33 │ license = "Apache-2.0 OR MIT"
+   │            ━━━━━━━━━━────━━━
+   │            │             │
+   │            │             rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ autocfg v1.5.0
+     └── (build) num-traits v0.2.19
+         ├── ark-ec v0.4.2
+         │   ├── ark-bls12-381 v0.4.0
+         │   │   └── soroban-env-host v25.0.1
+         │   │       └── soroban-sdk v25.3.0
+         │   │           ├── verifier-sample v0.1.0
+         │   │           └── zk-soroban v0.1.0
+         │   │               └── verifier-sample v0.1.0 (*)
+         │   ├── ark-bn254 v0.4.0
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ark-ff v0.4.2
+         │   ├── ark-bls12-381 v0.4.0 (*)
+         │   ├── ark-bn254 v0.4.0 (*)
+         │   ├── ark-ec v0.4.2 (*)
+         │   ├── ark-poly v0.4.2
+         │   │   └── ark-ec v0.4.2 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ark-ff-macros v0.4.2
+         │   └── ark-ff v0.4.2 (*)
+         ├── ark-std v0.4.0
+         │   ├── ark-bls12-381 v0.4.0 (*)
+         │   ├── ark-bn254 v0.4.0 (*)
+         │   ├── ark-ec v0.4.2 (*)
+         │   ├── ark-ff v0.4.2 (*)
+         │   ├── ark-poly v0.4.2 (*)
+         │   └── ark-serialize v0.4.2
+         │       ├── ark-bls12-381 v0.4.0 (*)
+         │       ├── ark-ec v0.4.2 (*)
+         │       ├── ark-ff v0.4.2 (*)
+         │       ├── ark-poly v0.4.2 (*)
+         │       └── soroban-env-host v25.0.1 (*)
+         ├── num-bigint v0.4.6
+         │   ├── ark-ff v0.4.2 (*)
+         │   ├── ark-ff-macros v0.4.2 (*)
+         │   ├── ark-serialize v0.4.2 (*)
+         │   └── bytes-lit v0.0.5
+         │       └── soroban-sdk v25.3.0 (*)
+         ├── num-integer v0.1.46
+         │   ├── num-bigint v0.4.6 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── soroban-env-common v25.0.1
+         │   ├── soroban-env-guest v25.0.1
+         │   │   └── soroban-sdk v25.3.0 (*)
+         │   ├── soroban-env-host v25.0.1 (*)
+         │   └── soroban-sdk-macros v25.3.0
+         │       └── soroban-sdk v25.3.0 (*)
+         ├── soroban-env-host v25.0.1 (*)
+         └── wasmi_core v0.13.0
+             └── soroban-wasmi v0.31.1-soroban.20.0.1
+                 ├── soroban-env-common v25.0.1 (*)
+                 └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/base16ct-0.2.0/Cargo.toml:36:12
+   │
+36 │ license = "Apache-2.0 OR MIT"
+   │            ━━━━━━━━━━────━━━
+   │            │             │
+   │            │             rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ base16ct v0.2.0
+     ├── elliptic-curve v0.13.8
+     │   ├── ecdsa v0.16.9
+     │   │   ├── k256 v0.13.4
+     │   │   │   └── soroban-env-host v25.0.1
+     │   │   │       └── soroban-sdk v25.3.0
+     │   │   │           ├── verifier-sample v0.1.0
+     │   │   │           └── zk-soroban v0.1.0
+     │   │   │               └── verifier-sample v0.1.0 (*)
+     │   │   ├── p256 v0.13.2
+     │   │   │   └── soroban-env-host v25.0.1 (*)
+     │   │   └── soroban-env-host v25.0.1 (*)
+     │   ├── k256 v0.13.4 (*)
+     │   ├── p256 v0.13.2 (*)
+     │   ├── primeorder v0.13.6
+     │   │   └── p256 v0.13.2 (*)
+     │   └── soroban-env-host v25.0.1 (*)
+     └── sec1 v0.7.3
+         ├── elliptic-curve v0.13.8 (*)
+         └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/base64-0.22.1/Cargo.toml:29:12
+   │
+29 │ license = "MIT OR Apache-2.0"
+   │            ━━━────━━━━━━━━━━
+   │            │      │
+   │            │      rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ base64 v0.22.1
+     ├── soroban-spec v25.3.0
+     │   ├── soroban-sdk-macros v25.3.0
+     │   │   └── soroban-sdk v25.3.0
+     │   │       ├── verifier-sample v0.1.0
+     │   │       └── zk-soroban v0.1.0
+     │   │           └── verifier-sample v0.1.0 (*)
+     │   └── soroban-spec-rust v25.3.0
+     │       └── soroban-sdk-macros v25.3.0 (*)
+     └── stellar-xdr v25.0.0
+         ├── soroban-env-common v25.0.1
+         │   ├── soroban-env-guest v25.0.1
+         │   │   └── soroban-sdk v25.3.0 (*)
+         │   ├── soroban-env-host v25.0.1
+         │   │   └── soroban-sdk v25.3.0 (*)
+         │   └── soroban-sdk-macros v25.3.0 (*)
+         ├── soroban-env-macros v25.0.1
+         │   └── soroban-env-common v25.0.1 (*)
+         ├── soroban-sdk-macros v25.3.0 (*)
+         ├── soroban-spec v25.3.0 (*)
+         └── soroban-spec-rust v25.3.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/block-buffer-0.10.4/Cargo.toml:28:12
+   │
+28 │ license = "MIT OR Apache-2.0"
+   │            ━━━────━━━━━━━━━━
+   │            │      │
+   │            │      rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ block-buffer v0.10.4
+     └── digest v0.10.7
+         ├── ark-ff v0.4.2
+         │   ├── ark-bls12-381 v0.4.0
+         │   │   └── soroban-env-host v25.0.1
+         │   │       └── soroban-sdk v25.3.0
+         │   │           ├── verifier-sample v0.1.0
+         │   │           └── zk-soroban v0.1.0
+         │   │               └── verifier-sample v0.1.0 (*)
+         │   ├── ark-bn254 v0.4.0
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   ├── ark-ec v0.4.2
+         │   │   ├── ark-bls12-381 v0.4.0 (*)
+         │   │   ├── ark-bn254 v0.4.0 (*)
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   ├── ark-poly v0.4.2
+         │   │   └── ark-ec v0.4.2 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ark-serialize v0.4.2
+         │   ├── ark-bls12-381 v0.4.0 (*)
+         │   ├── ark-ec v0.4.2 (*)
+         │   ├── ark-ff v0.4.2 (*)
+         │   ├── ark-poly v0.4.2 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── curve25519-dalek v4.1.3
+         │   ├── ed25519-dalek v2.2.0
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ecdsa v0.16.9
+         │   ├── k256 v0.13.4
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   ├── p256 v0.13.2
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── elliptic-curve v0.13.8
+         │   ├── ecdsa v0.16.9 (*)
+         │   ├── k256 v0.13.4 (*)
+         │   ├── p256 v0.13.2 (*)
+         │   ├── primeorder v0.13.6
+         │   │   └── p256 v0.13.2 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── hmac v0.12.1
+         │   ├── rfc6979 v0.4.0
+         │   │   └── ecdsa v0.16.9 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── sha2 v0.10.9
+         │   ├── ed25519-dalek v2.2.0 (*)
+         │   ├── k256 v0.13.4 (*)
+         │   ├── p256 v0.13.2 (*)
+         │   ├── soroban-env-host v25.0.1 (*)
+         │   ├── soroban-sdk-macros v25.3.0
+         │   │   └── soroban-sdk v25.3.0 (*)
+         │   ├── soroban-spec v25.3.0
+         │   │   ├── soroban-sdk-macros v25.3.0 (*)
+         │   │   └── soroban-spec-rust v25.3.0
+         │   │       └── soroban-sdk-macros v25.3.0 (*)
+         │   ├── soroban-spec-rust v25.3.0 (*)
+         │   └── stellar-xdr v25.0.0
+         │       ├── soroban-env-common v25.0.1
+         │       │   ├── soroban-env-guest v25.0.1
+         │       │   │   └── soroban-sdk v25.3.0 (*)
+         │       │   ├── soroban-env-host v25.0.1 (*)
+         │       │   └── soroban-sdk-macros v25.3.0 (*)
+         │       ├── soroban-env-macros v25.0.1
+         │       │   └── soroban-env-common v25.0.1 (*)
+         │       ├── soroban-sdk-macros v25.3.0 (*)
+         │       ├── soroban-spec v25.3.0 (*)
+         │       └── soroban-spec-rust v25.3.0 (*)
+         ├── sha3 v0.10.8
+         │   └── soroban-env-host v25.0.1 (*)
+         └── signature v2.2.0
+             ├── ecdsa v0.16.9 (*)
+             └── ed25519 v2.2.3
+                 └── ed25519-dalek v2.2.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bumpalo-3.20.2/Cargo.toml:39:12
+   │
+39 │ license = "MIT OR Apache-2.0"
+   │            ━━━────━━━━━━━━━━
+   │            │      │
+   │            │      rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ bumpalo v3.20.2
+     └── wasm-bindgen-macro-support v0.2.114
+         └── wasm-bindgen-macro v0.2.114
+             └── wasm-bindgen v0.2.114
+                 ├── getrandom v0.2.17
+                 │   ├── rand_core v0.6.4
+                 │   │   ├── crypto-bigint v0.5.5
+                 │   │   │   └── elliptic-curve v0.13.8
+                 │   │   │       ├── ecdsa v0.16.9
+                 │   │   │       │   ├── k256 v0.13.4
+                 │   │   │       │   │   └── soroban-env-host v25.0.1
+                 │   │   │       │   │       └── soroban-sdk v25.3.0
+                 │   │   │       │   │           ├── verifier-sample v0.1.0
+                 │   │   │       │   │           └── zk-soroban v0.1.0
+                 │   │   │       │   │               └── verifier-sample v0.1.0 (*)
+                 │   │   │       │   ├── p256 v0.13.2
+                 │   │   │       │   │   └── soroban-env-host v25.0.1 (*)
+                 │   │   │       │   └── soroban-env-host v25.0.1 (*)
+                 │   │   │       ├── k256 v0.13.4 (*)
+                 │   │   │       ├── p256 v0.13.2 (*)
+                 │   │   │       ├── primeorder v0.13.6
+                 │   │   │       │   └── p256 v0.13.2 (*)
+                 │   │   │       └── soroban-env-host v25.0.1 (*)
+                 │   │   ├── ed25519-dalek v2.2.0
+                 │   │   │   └── soroban-env-host v25.0.1 (*)
+                 │   │   ├── elliptic-curve v0.13.8 (*)
+                 │   │   ├── ff v0.13.1
+                 │   │   │   ├── elliptic-curve v0.13.8 (*)
+                 │   │   │   └── group v0.13.0
+                 │   │   │       └── elliptic-curve v0.13.8 (*)
+                 │   │   ├── group v0.13.0 (*)
+                 │   │   ├── rand v0.8.5
+                 │   │   │   ├── ark-std v0.4.0
+                 │   │   │   │   ├── ark-bls12-381 v0.4.0
+                 │   │   │   │   │   └── soroban-env-host v25.0.1 (*)
+                 │   │   │   │   ├── ark-bn254 v0.4.0
+                 │   │   │   │   │   └── soroban-env-host v25.0.1 (*)
+                 │   │   │   │   ├── ark-ec v0.4.2
+                 │   │   │   │   │   ├── ark-bls12-381 v0.4.0 (*)
+                 │   │   │   │   │   ├── ark-bn254 v0.4.0 (*)
+                 │   │   │   │   │   └── soroban-env-host v25.0.1 (*)
+                 │   │   │   │   ├── ark-ff v0.4.2
+                 │   │   │   │   │   ├── ark-bls12-381 v0.4.0 (*)
+                 │   │   │   │   │   ├── ark-bn254 v0.4.0 (*)
+                 │   │   │   │   │   ├── ark-ec v0.4.2 (*)
+                 │   │   │   │   │   ├── ark-poly v0.4.2
+                 │   │   │   │   │   │   └── ark-ec v0.4.2 (*)
+                 │   │   │   │   │   └── soroban-env-host v25.0.1 (*)
+                 │   │   │   │   ├── ark-poly v0.4.2 (*)
+                 │   │   │   │   └── ark-serialize v0.4.2
+                 │   │   │   │       ├── ark-bls12-381 v0.4.0 (*)
+                 │   │   │   │       ├── ark-ec v0.4.2 (*)
+                 │   │   │   │       ├── ark-ff v0.4.2 (*)
+                 │   │   │   │       ├── ark-poly v0.4.2 (*)
+                 │   │   │   │       └── soroban-env-host v25.0.1 (*)
+                 │   │   │   ├── soroban-env-host v25.0.1 (*)
+                 │   │   │   └── soroban-sdk v25.3.0 (*)
+                 │   │   ├── rand_chacha v0.3.1
+                 │   │   │   ├── rand v0.8.5 (*)
+                 │   │   │   └── soroban-env-host v25.0.1 (*)
+                 │   │   └── signature v2.2.0
+                 │   │       ├── ecdsa v0.16.9 (*)
+                 │   │       └── ed25519 v2.2.3
+                 │   │           └── ed25519-dalek v2.2.0 (*)
+                 │   └── soroban-env-host v25.0.1 (*)
+                 └── js-sys v0.3.91
+                     └── getrandom v0.2.17 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/byteorder-1.5.0/Cargo.toml:34:12
+   │
+34 │ license = "Unlicense OR MIT"
+   │            ━━━━━━━━━────━━━
+   │            │            │
+   │            │            rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ Unlicense - The Unlicense:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ byteorder v1.5.0
+     └── hash32 v0.3.1
+         └── heapless v0.8.0
+             └── stellar-strkey v0.0.16
+                 └── soroban-sdk v25.3.0
+                     ├── verifier-sample v0.1.0
+                     └── zk-soroban v0.1.0
+                         └── verifier-sample v0.1.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/bytes-lit-0.0.5/Cargo.toml:21:12
+   │
+21 │ license = "Apache-2.0"
+   │            ━━━━━━━━━━
+   │            │
+   │            rejected: license is not explicitly allowed
+   │
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ bytes-lit v0.0.5
+     └── soroban-sdk v25.3.0
+         ├── verifier-sample v0.1.0
+         └── zk-soroban v0.1.0
+             └── verifier-sample v0.1.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg-if-1.0.4/Cargo.toml:30:12
+   │
+30 │ license = "MIT OR Apache-2.0"
+   │            ━━━────━━━━━━━━━━
+   │            │      │
+   │            │      rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ cfg-if v1.0.4
+     ├── ahash v0.8.12
+     │   └── hashbrown v0.13.2
+     │       ├── ark-ec v0.4.2
+     │       │   ├── ark-bls12-381 v0.4.0
+     │       │   │   └── soroban-env-host v25.0.1
+     │       │   │       └── soroban-sdk v25.3.0
+     │       │   │           ├── verifier-sample v0.1.0
+     │       │   │           └── zk-soroban v0.1.0
+     │       │   │               └── verifier-sample v0.1.0 (*)
+     │       │   ├── ark-bn254 v0.4.0
+     │       │   │   └── soroban-env-host v25.0.1 (*)
+     │       │   └── soroban-env-host v25.0.1 (*)
+     │       └── ark-poly v0.4.2
+     │           └── ark-ec v0.4.2 (*)
+     ├── curve25519-dalek v4.1.3
+     │   ├── ed25519-dalek v2.2.0
+     │   │   └── soroban-env-host v25.0.1 (*)
+     │   └── soroban-env-host v25.0.1 (*)
+     ├── getrandom v0.2.17
+     │   ├── rand_core v0.6.4
+     │   │   ├── crypto-bigint v0.5.5
+     │   │   │   └── elliptic-curve v0.13.8
+     │   │   │       ├── ecdsa v0.16.9
+     │   │   │       │   ├── k256 v0.13.4
+     │   │   │       │   │   └── soroban-env-host v25.0.1 (*)
+     │   │   │       │   ├── p256 v0.13.2
+     │   │   │       │   │   └── soroban-env-host v25.0.1 (*)
+     │   │   │       │   └── soroban-env-host v25.0.1 (*)
+     │   │   │       ├── k256 v0.13.4 (*)
+     │   │   │       ├── p256 v0.13.2 (*)
+     │   │   │       ├── primeorder v0.13.6
+     │   │   │       │   └── p256 v0.13.2 (*)
+     │   │   │       └── soroban-env-host v25.0.1 (*)
+     │   │   ├── ed25519-dalek v2.2.0 (*)
+     │   │   ├── elliptic-curve v0.13.8 (*)
+     │   │   ├── ff v0.13.1
+     │   │   │   ├── elliptic-curve v0.13.8 (*)
+     │   │   │   └── group v0.13.0
+     │   │   │       └── elliptic-curve v0.13.8 (*)
+     │   │   ├── group v0.13.0 (*)
+     │   │   ├── rand v0.8.5
+     │   │   │   ├── ark-std v0.4.0
+     │   │   │   │   ├── ark-bls12-381 v0.4.0 (*)
+     │   │   │   │   ├── ark-bn254 v0.4.0 (*)
+     │   │   │   │   ├── ark-ec v0.4.2 (*)
+     │   │   │   │   ├── ark-ff v0.4.2
+     │   │   │   │   │   ├── ark-bls12-381 v0.4.0 (*)
+     │   │   │   │   │   ├── ark-bn254 v0.4.0 (*)
+     │   │   │   │   │   ├── ark-ec v0.4.2 (*)
+     │   │   │   │   │   ├── ark-poly v0.4.2 (*)
+     │   │   │   │   │   └── soroban-env-host v25.0.1 (*)
+     │   │   │   │   ├── ark-poly v0.4.2 (*)
+     │   │   │   │   └── ark-serialize v0.4.2
+     │   │   │   │       ├── ark-bls12-381 v0.4.0 (*)
+     │   │   │   │       ├── ark-ec v0.4.2 (*)
+     │   │   │   │       ├── ark-ff v0.4.2 (*)
+     │   │   │   │       ├── ark-poly v0.4.2 (*)
+     │   │   │   │       └── soroban-env-host v25.0.1 (*)
+     │   │   │   ├── soroban-env-host v25.0.1 (*)
+     │   │   │   └── soroban-sdk v25.3.0 (*)
+     │   │   ├── rand_chacha v0.3.1
+     │   │   │   ├── rand v0.8.5 (*)
+     │   │   │   └── soroban-env-host v25.0.1 (*)
+     │   │   └── signature v2.2.0
+     │   │       ├── ecdsa v0.16.9 (*)
+     │   │       └── ed25519 v2.2.3
+     │   │           └── ed25519-dalek v2.2.0 (*)
+     │   └── soroban-env-host v25.0.1 (*)
+     ├── k256 v0.13.4 (*)
+     ├── sha2 v0.10.9
+     │   ├── ed25519-dalek v2.2.0 (*)
+     │   ├── k256 v0.13.4 (*)
+     │   ├── p256 v0.13.2 (*)
+     │   ├── soroban-env-host v25.0.1 (*)
+     │   ├── soroban-sdk-macros v25.3.0
+     │   │   └── soroban-sdk v25.3.0 (*)
+     │   ├── soroban-spec v25.3.0
+     │   │   ├── soroban-sdk-macros v25.3.0 (*)
+     │   │   └── soroban-spec-rust v25.3.0
+     │   │       └── soroban-sdk-macros v25.3.0 (*)
+     │   ├── soroban-spec-rust v25.3.0 (*)
+     │   └── stellar-xdr v25.0.0
+     │       ├── soroban-env-common v25.0.1
+     │       │   ├── soroban-env-guest v25.0.1
+     │       │   │   └── soroban-sdk v25.3.0 (*)
+     │       │   ├── soroban-env-host v25.0.1 (*)
+     │       │   └── soroban-sdk-macros v25.3.0 (*)
+     │       ├── soroban-env-macros v25.0.1
+     │       │   └── soroban-env-common v25.0.1 (*)
+     │       ├── soroban-sdk-macros v25.3.0 (*)
+     │       ├── soroban-spec v25.3.0 (*)
+     │       └── soroban-spec-rust v25.3.0 (*)
+     └── wasm-bindgen v0.2.114
+         ├── getrandom v0.2.17 (*)
+         └── js-sys v0.3.91
+             └── getrandom v0.2.17 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cfg_eval-0.1.2/Cargo.toml:22:12
+   │
+22 │ license = "Zlib OR MIT OR Apache-2.0"
+   │            ━━━━────━━━────━━━━━━━━━━
+   │            │       │      │
+   │            │       │      rejected: license is not explicitly allowed
+   │            │       rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ Zlib - zlib License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ cfg_eval v0.1.2
+     └── stellar-xdr v25.0.0
+         ├── soroban-env-common v25.0.1
+         │   ├── soroban-env-guest v25.0.1
+         │   │   └── soroban-sdk v25.3.0
+         │   │       ├── verifier-sample v0.1.0
+         │   │       └── zk-soroban v0.1.0
+         │   │           └── verifier-sample v0.1.0 (*)
+         │   ├── soroban-env-host v25.0.1
+         │   │   └── soroban-sdk v25.3.0 (*)
+         │   └── soroban-sdk-macros v25.3.0
+         │       └── soroban-sdk v25.3.0 (*)
+         ├── soroban-env-macros v25.0.1
+         │   └── soroban-env-common v25.0.1 (*)
+         ├── soroban-sdk-macros v25.3.0 (*)
+         ├── soroban-spec v25.3.0
+         │   ├── soroban-sdk-macros v25.3.0 (*)
+         │   └── soroban-spec-rust v25.3.0
+         │       └── soroban-sdk-macros v25.3.0 (*)
+         └── soroban-spec-rust v25.3.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/const-oid-0.9.6/Cargo.toml:38:12
+   │
+38 │ license = "Apache-2.0 OR MIT"
+   │            ━━━━━━━━━━────━━━
+   │            │             │
+   │            │             rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ const-oid v0.9.6
+     │   │               └── verifier-sample v0.1.0 (*)
+     ├── der v0.7.10
+     │   ├── ecdsa v0.16.9
+     │   │   ├── k256 v0.13.4
+     │   │   │   └── soroban-env-host v25.0.1
+     │   │   │       └── soroban-sdk v25.3.0
+     │   │   │           ├── verifier-sample v0.1.0
+     │   │   │           └── zk-soroban v0.1.0
+     │   │   │               └── verifier-sample v0.1.0 (*)
+     │   │   ├── p256 v0.13.2
+     │   │   │   └── soroban-env-host v25.0.1 (*)
+     │   │   └── soroban-env-host v25.0.1 (*)
+     │   └── sec1 v0.7.3
+     │       ├── elliptic-curve v0.13.8
+     │       │   ├── ecdsa v0.16.9 (*)
+     │       │   ├── k256 v0.13.4 (*)
+     │       │   ├── p256 v0.13.2 (*)
+     │       │   ├── primeorder v0.13.6
+     │       │   │   └── p256 v0.13.2 (*)
+     │       │   └── soroban-env-host v25.0.1 (*)
+     │       └── soroban-env-host v25.0.1 (*)
+     └── digest v0.10.7
+         ├── ark-ff v0.4.2
+         │   ├── ark-bls12-381 v0.4.0
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   ├── ark-bn254 v0.4.0
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   ├── ark-ec v0.4.2
+         │   │   ├── ark-bls12-381 v0.4.0 (*)
+         │   │   ├── ark-bn254 v0.4.0 (*)
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   ├── ark-poly v0.4.2
+         │   │   └── ark-ec v0.4.2 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ark-serialize v0.4.2
+         │   ├── ark-bls12-381 v0.4.0 (*)
+         │   ├── ark-ec v0.4.2 (*)
+         │   ├── ark-ff v0.4.2 (*)
+         │   ├── ark-poly v0.4.2 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── curve25519-dalek v4.1.3
+         │   ├── ed25519-dalek v2.2.0
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ecdsa v0.16.9 (*)
+         ├── elliptic-curve v0.13.8 (*)
+         ├── hmac v0.12.1
+         │   ├── rfc6979 v0.4.0
+         │   │   └── ecdsa v0.16.9 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── sha2 v0.10.9
+         │   ├── ed25519-dalek v2.2.0 (*)
+         │   ├── k256 v0.13.4 (*)
+         │   ├── p256 v0.13.2 (*)
+         │   ├── soroban-env-host v25.0.1 (*)
+         │   ├── soroban-sdk-macros v25.3.0
+         │   │   └── soroban-sdk v25.3.0 (*)
+         │   ├── soroban-spec v25.3.0
+         │   │   ├── soroban-sdk-macros v25.3.0 (*)
+         │   │   └── soroban-spec-rust v25.3.0
+         │   │       └── soroban-sdk-macros v25.3.0 (*)
+         │   ├── soroban-spec-rust v25.3.0 (*)
+         │   └── stellar-xdr v25.0.0
+         │       ├── soroban-env-common v25.0.1
+         │       │   ├── soroban-env-guest v25.0.1
+         │       │   │   └── soroban-sdk v25.3.0 (*)
+         │       │   ├── soroban-env-host v25.0.1 (*)
+         │       │   └── soroban-sdk-macros v25.3.0 (*)
+         │       ├── soroban-env-macros v25.0.1
+         │       │   └── soroban-env-common v25.0.1 (*)
+         │       ├── soroban-sdk-macros v25.3.0 (*)
+         │       ├── soroban-spec v25.3.0 (*)
+         │       └── soroban-spec-rust v25.3.0 (*)
+         ├── sha3 v0.10.8
+         │   └── soroban-env-host v25.0.1 (*)
+         └── signature v2.2.0
+             ├── ecdsa v0.16.9 (*)
+             └── ed25519 v2.2.3
+                 └── ed25519-dalek v2.2.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/cpufeatures-0.2.17/Cargo.toml:37:12
+   │
+37 │ license = "MIT OR Apache-2.0"
+   │            ━━━────━━━━━━━━━━
+   │            │      │
+   │            │      rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ cpufeatures v0.2.17
+     ├── curve25519-dalek v4.1.3
+     │   ├── ed25519-dalek v2.2.0
+     │   │   └── soroban-env-host v25.0.1
+     │   │       └── soroban-sdk v25.3.0
+     │   │           ├── verifier-sample v0.1.0
+     │   │           └── zk-soroban v0.1.0
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crypto-common-0.1.6/Cargo.toml:28:12
+   │
+28 │ license = "MIT OR Apache-2.0"
+   │            ━━━────━━━━━━━━━━
+   │            │      │
+   │            │      rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ crypto-common v0.1.6
+     └── digest v0.10.7
+         ├── ark-ff v0.4.2
+         │   ├── ark-bls12-381 v0.4.0
+         │   │   └── soroban-env-host v25.0.1
+         │   │       └── soroban-sdk v25.3.0
+         │   │           ├── verifier-sample v0.1.0
+         │   │           └── zk-soroban v0.1.0
+         │   │               └── verifier-sample v0.1.0 (*)
+         │   ├── ark-bn254 v0.4.0
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   ├── ark-ec v0.4.2
+         │   │   ├── ark-bls12-381 v0.4.0 (*)
+         │   │   ├── ark-bn254 v0.4.0 (*)
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   ├── ark-poly v0.4.2
+         │   │   └── ark-ec v0.4.2 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ark-serialize v0.4.2
+         │   ├── ark-bls12-381 v0.4.0 (*)
+         │   ├── ark-ec v0.4.2 (*)
+         │   ├── ark-ff v0.4.2 (*)
+         │   ├── ark-poly v0.4.2 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── curve25519-dalek v4.1.3
+         │   ├── ed25519-dalek v2.2.0
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── ecdsa v0.16.9
+         │   ├── k256 v0.13.4
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   ├── p256 v0.13.2
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── elliptic-curve v0.13.8
+         │   ├── ecdsa v0.16.9 (*)
+         │   ├── k256 v0.13.4 (*)
+         │   ├── p256 v0.13.2 (*)
+         │   ├── primeorder v0.13.6
+         │   │   └── p256 v0.13.2 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── hmac v0.12.1
+         │   ├── rfc6979 v0.4.0
+         │   │   └── ecdsa v0.16.9 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── sha2 v0.10.9
+         │   ├── ed25519-dalek v2.2.0 (*)
+         │   ├── k256 v0.13.4 (*)
+         │   ├── p256 v0.13.2 (*)
+         │   ├── soroban-env-host v25.0.1 (*)
+         │   ├── soroban-sdk-macros v25.3.0
+         │   │   └── soroban-sdk v25.3.0 (*)
+         │   ├── soroban-spec v25.3.0
+         │   │   ├── soroban-sdk-macros v25.3.0 (*)
+         │   │   └── soroban-spec-rust v25.3.0
+         │   │       └── soroban-sdk-macros v25.3.0 (*)
+         │   ├── soroban-spec-rust v25.3.0 (*)
+         │   └── stellar-xdr v25.0.0
+         │       ├── soroban-env-common v25.0.1
+         │       │   ├── soroban-env-guest v25.0.1
+         │       │   │   └── soroban-sdk v25.3.0 (*)
+         │       │   ├── soroban-env-host v25.0.1 (*)
+         │       │   └── soroban-sdk-macros v25.3.0 (*)
+         │       ├── soroban-env-macros v25.0.1
+         │       │   └── soroban-env-common v25.0.1 (*)
+         │       ├── soroban-sdk-macros v25.3.0 (*)
+         │       ├── soroban-spec v25.3.0 (*)
+         │       └── soroban-spec-rust v25.3.0 (*)
+         ├── sha3 v0.10.8
+         │   └── soroban-env-host v25.0.1 (*)
+         └── signature v2.2.0
+             ├── ecdsa v0.16.9 (*)
+             └── ed25519 v2.2.3
+                 └── ed25519-dalek v2.2.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/curve25519-dalek-4.1.3/Cargo.toml:40:12
+   │
+40 │ license = "BSD-3-Clause"
+   │            ━━━━━━━━━━━━
+   │            │
+   │            rejected: license is not explicitly allowed
+   │
+   ├ BSD-3-Clause - BSD 3-Clause "New" or "Revised" License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ curve25519-dalek v4.1.3
+     │   └── soroban-env-host v25.0.1 (*)
+     ├── keccak v0.1.6
+     │   └── sha3 v0.10.8
+     │       └── soroban-env-host v25.0.1 (*)
+     └── sha2 v0.10.9
+         ├── ed25519-dalek v2.2.0 (*)
+         ├── k256 v0.13.4
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── p256 v0.13.2
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── soroban-env-host v25.0.1 (*)
+         ├── soroban-sdk-macros v25.3.0
+         │   └── soroban-sdk v25.3.0 (*)
+         ├── soroban-spec v25.3.0
+         │   ├── soroban-sdk-macros v25.3.0 (*)
+         │   └── soroban-spec-rust v25.3.0
+         │       └── soroban-sdk-macros v25.3.0 (*)
+         ├── soroban-spec-rust v25.3.0 (*)
+         └── stellar-xdr v25.0.0
+             ├── soroban-env-common v25.0.1
+             │   ├── soroban-env-guest v25.0.1
+             │   │   └── soroban-sdk v25.3.0 (*)
+             │   ├── soroban-env-host v25.0.1 (*)
+             │   └── soroban-sdk-macros v25.3.0 (*)
+             ├── soroban-env-macros v25.0.1
+             │   └── soroban-env-common v25.0.1 (*)
+             ├── soroban-sdk-macros v25.3.0 (*)
+             ├── soroban-spec v25.3.0 (*)
+             └── soroban-spec-rust v25.3.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crate-git-revision-0.0.6/Cargo.toml:21:12
+   │
+21 │ license = "Apache-2.0"
+   │            ━━━━━━━━━━
+   │            │
+   │            rejected: license is not explicitly allowed
+   │
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ crate-git-revision v0.0.6
+     ├── (build) soroban-env-common v25.0.1
+     │   ├── soroban-env-guest v25.0.1
+     │   │   └── soroban-sdk v25.3.0
+     │   │       ├── verifier-sample v0.1.0
+     │   │       └── zk-soroban v0.1.0
+     │   │           └── verifier-sample v0.1.0 (*)
+     │   ├── soroban-env-host v25.0.1
+     │   │   └── soroban-sdk v25.3.0 (*)
+     │   └── soroban-sdk-macros v25.3.0
+     │       └── soroban-sdk v25.3.0 (*)
+     ├── (build) soroban-sdk v25.3.0 (*)
+     ├── (build) stellar-strkey v0.0.13
+     │   ├── soroban-env-host v25.0.1 (*)
+     │   └── stellar-xdr v25.0.0
+     │       ├── soroban-env-common v25.0.1 (*)
+     │       ├── soroban-env-macros v25.0.1
+     │       │   └── soroban-env-common v25.0.1 (*)
+     │       ├── soroban-sdk-macros v25.3.0 (*)
+     │       ├── soroban-spec v25.3.0
+     │       │   ├── soroban-sdk-macros v25.3.0 (*)
+     │       │   └── soroban-spec-rust v25.3.0
+     │       │       └── soroban-sdk-macros v25.3.0 (*)
+     │       └── soroban-spec-rust v25.3.0 (*)
+     ├── (build) stellar-strkey v0.0.16
+     │   └── soroban-sdk v25.3.0 (*)
+     └── (build) stellar-xdr v25.0.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/crypto-bigint-0.5.5/Cargo.toml:38:12
+   │
+38 │ license = "Apache-2.0 OR MIT"
+   │            ━━━━━━━━━━────━━━
+   │            │             │
+   │            │             rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ crypto-bigint v0.5.5
+     └── elliptic-curve v0.13.8
+         ├── ecdsa v0.16.9
+         │   ├── k256 v0.13.4
+         │   │   └── soroban-env-host v25.0.1
+         │   │       └── soroban-sdk v25.3.0
+         │   │           ├── verifier-sample v0.1.0
+         │   │           └── zk-soroban v0.1.0
+         │   │               └── verifier-sample v0.1.0 (*)
+         │   ├── p256 v0.13.2
+         │   │   └── soroban-env-host v25.0.1 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         ├── k256 v0.13.4 (*)
+         ├── p256 v0.13.2 (*)
+         ├── primeorder v0.13.6
+         │   └── p256 v0.13.2 (*)
+         └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+     ├── ed25519-dalek v2.2.0
+     │   └── soroban-env-host v25.0.1
+     │       └── soroban-sdk v25.3.0
+     │           ├── verifier-sample v0.1.0
+     │           └── zk-soroban v0.1.0
+     │               └── verifier-sample v0.1.0 (*)
+     └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/curve25519-dalek-derive-0.1.1/Cargo.toml:20:12
+   │
+20 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ curve25519-dalek-derive v0.1.1
+     └── curve25519-dalek v4.1.3
+         ├── ed25519-dalek v2.2.0
+         │   └── soroban-env-host v25.0.1
+         │       └── soroban-sdk v25.3.0
+         │           ├── verifier-sample v0.1.0
+         │           └── zk-soroban v0.1.0
+         │               └── verifier-sample v0.1.0 (*)
+         └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/darling-0.20.11/Cargo.toml:35:12
+   │
+35 │ license = "MIT"
+   │            ━━━
+   │            │
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ darling v0.20.11
+     └── soroban-sdk-macros v25.3.0
+         └── soroban-sdk v25.3.0
+             ├── verifier-sample v0.1.0
+             └── zk-soroban v0.1.0
+                 └── verifier-sample v0.1.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/darling-0.23.0/Cargo.toml:35:12
+   │
+35 │ license = "MIT"
+   │            ━━━
+   │            │
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ darling v0.23.0
+     └── serde_with_macros v3.18.0
+         └── serde_with v3.18.0
+             └── stellar-xdr v25.0.0
+                 ├── soroban-env-common v25.0.1
+                 │   ├── soroban-env-guest v25.0.1
+                 │   │   └── soroban-sdk v25.3.0
+                 │   │       ├── verifier-sample v0.1.0
+                 │   │       └── zk-soroban v0.1.0
+                 │   │           └── verifier-sample v0.1.0 (*)
+                 │   ├── soroban-env-host v25.0.1
+                 │   │   └── soroban-sdk v25.3.0 (*)
+                 │   └── soroban-sdk-macros v25.3.0
+                 │       └── soroban-sdk v25.3.0 (*)
+                 ├── soroban-env-macros v25.0.1
+                 │   └── soroban-env-common v25.0.1 (*)
+                 ├── soroban-sdk-macros v25.3.0 (*)
+                 ├── soroban-spec v25.3.0
+                 │   ├── soroban-sdk-macros v25.3.0 (*)
+                 │   └── soroban-spec-rust v25.3.0
+                 │       └── soroban-sdk-macros v25.3.0 (*)
+                 └── soroban-spec-rust v25.3.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/darling_core-0.20.11/Cargo.toml:29:12
+   │
+29 │ license = "MIT"
+   │            ━━━
+   │            │
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ darling_core v0.20.11
+     ├── darling v0.20.11
+     │   └── soroban-sdk-macros v25.3.0
+     │       └── soroban-sdk v25.3.0
+     │           ├── verifier-sample v0.1.0
+     │           └── zk-soroban v0.1.0
+     │               └── verifier-sample v0.1.0 (*)
+     └── darling_macro v0.20.11
+         └── darling v0.20.11 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/darling_core-0.23.0/Cargo.toml:29:12
+   │
+29 │ license = "MIT"
+   │            ━━━
+   │            │
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ darling_core v0.23.0
+     ├── darling v0.23.0
+     │   └── serde_with_macros v3.18.0
+     │       └── serde_with v3.18.0
+     │           └── stellar-xdr v25.0.0
+     │               ├── soroban-env-common v25.0.1
+     │               │   ├── soroban-env-guest v25.0.1
+     │               │   │   └── soroban-sdk v25.3.0
+     │               │   │       ├── verifier-sample v0.1.0
+     │               │   │       └── zk-soroban v0.1.0
+     │               │   │           └── verifier-sample v0.1.0 (*)
+     │               │   ├── soroban-env-host v25.0.1
+     │               │   │   └── soroban-sdk v25.3.0 (*)
+     │               │   └── soroban-sdk-macros v25.3.0
+     │               │       └── soroban-sdk v25.3.0 (*)
+     │               ├── soroban-env-macros v25.0.1
+     │               │   └── soroban-env-common v25.0.1 (*)
+     │               ├── soroban-sdk-macros v25.3.0 (*)
+     │               ├── soroban-spec v25.3.0
+     │               │   ├── soroban-sdk-macros v25.3.0 (*)
+     │               │   └── soroban-spec-rust v25.3.0
+     │               │       └── soroban-sdk-macros v25.3.0 (*)
+     │               └── soroban-spec-rust v25.3.0 (*)
+     └── darling_macro v0.23.0
+         └── darling v0.23.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/darling_macro-0.20.11/Cargo.toml:29:12
+   │
+29 │ license = "MIT"
+   │            ━━━
+   │            │
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ darling_macro v0.20.11
+     └── darling v0.20.11
+         └── soroban-sdk-macros v25.3.0
+             └── soroban-sdk v25.3.0
+                 ├── verifier-sample v0.1.0
+                 └── zk-soroban v0.1.0
+                     └── verifier-sample v0.1.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/darling_macro-0.23.0/Cargo.toml:29:12
+   │
+29 │ license = "MIT"
+   │            ━━━
+   │            │
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ darling_macro v0.23.0
+     └── darling v0.23.0
+         └── serde_with_macros v3.18.0
+             └── serde_with v3.18.0
+                 └── stellar-xdr v25.0.0
+                     ├── soroban-env-common v25.0.1
+                     │   ├── soroban-env-guest v25.0.1
+                     │   │   └── soroban-sdk v25.3.0
+                     │   │       ├── verifier-sample v0.1.0
+                     │   │       └── zk-soroban v0.1.0
+                     │   │           └── verifier-sample v0.1.0 (*)
+                     │   ├── soroban-env-host v25.0.1
+                     │   │   └── soroban-sdk v25.3.0 (*)
+                     │   └── soroban-sdk-macros v25.3.0
+                     │       └── soroban-sdk v25.3.0 (*)
+                     ├── soroban-env-macros v25.0.1
+                     │   └── soroban-env-common v25.0.1 (*)
+                     ├── soroban-sdk-macros v25.3.0 (*)
+                     ├── soroban-spec v25.3.0
+                     │   ├── soroban-sdk-macros v25.3.0 (*)
+                     │   └── soroban-spec-rust v25.3.0
+                     │       └── soroban-sdk-macros v25.3.0 (*)
+                     └── soroban-spec-rust v25.3.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/data-encoding-2.10.0/Cargo.toml:43:12
+   │
+43 │ license = "MIT"
+   │            ━━━
+   │            │
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ data-encoding v2.10.0
+     ├── stellar-strkey v0.0.13
+     │   ├── soroban-env-host v25.0.1
+     │   │   └── soroban-sdk v25.3.0
+     │   │       ├── verifier-sample v0.1.0
+     │   │       └── zk-soroban v0.1.0
+     │   │           └── verifier-sample v0.1.0 (*)
+     │   └── stellar-xdr v25.0.0
+     │       ├── soroban-env-common v25.0.1
+     │       │   ├── soroban-env-guest v25.0.1
+     │       │   │   └── soroban-sdk v25.3.0 (*)
+     │       │   ├── soroban-env-host v25.0.1 (*)
+     │       │   └── soroban-sdk-macros v25.3.0
+     │       │       └── soroban-sdk v25.3.0 (*)
+     │       ├── soroban-env-macros v25.0.1
+     │       │   └── soroban-env-common v25.0.1 (*)
+     │       ├── soroban-sdk-macros v25.3.0 (*)
+     │       ├── soroban-spec v25.3.0
+     │       │   ├── soroban-sdk-macros v25.3.0 (*)
+     │       │   └── soroban-spec-rust v25.3.0
+     │       │       └── soroban-sdk-macros v25.3.0 (*)
+     │       └── soroban-spec-rust v25.3.0 (*)
+     └── stellar-strkey v0.0.16
+         └── soroban-sdk v25.3.0 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/der-0.7.10/Cargo.toml:43:12
+   │
+43 │ license = "Apache-2.0 OR MIT"
+   │            ━━━━━━━━━━────━━━
+   │            │             │
+   │            │             rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ der v0.7.10
+     ├── ecdsa v0.16.9
+     │   ├── k256 v0.13.4
+     │   │   └── soroban-env-host v25.0.1
+     │   │       └── soroban-sdk v25.3.0
+     │   │           ├── verifier-sample v0.1.0
+     │   │           └── zk-soroban v0.1.0
+     │   │               └── verifier-sample v0.1.0 (*)
+     │   ├── p256 v0.13.2
+     │   │   └── soroban-env-host v25.0.1 (*)
+     │   └── soroban-env-host v25.0.1 (*)
+     └── sec1 v0.7.3
+         ├── elliptic-curve v0.13.8
+         │   ├── ecdsa v0.16.9 (*)
+         │   ├── k256 v0.13.4 (*)
+         │   ├── p256 v0.13.2 (*)
+         │   ├── primeorder v0.13.6
+         │   │   └── p256 v0.13.2 (*)
+         │   └── soroban-env-host v25.0.1 (*)
+         └── soroban-env-host v25.0.1 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/derivative-2.2.0/Cargo.toml:22:12
+   │
+22 │ license = "MIT/Apache-2.0"
+   │            ━━━─━━━━━━━━━━
+   │            │   │
+   │            │   rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ derivative v2.2.0
+     ├── ark-ec v0.4.2
+     │   ├── ark-bls12-381 v0.4.0
+     │   │   └── soroban-env-host v25.0.1
+     │   │       └── soroban-sdk v25.3.0
+     │   │           ├── verifier-sample v0.1.0
+     │   │           └── zk-soroban v0.1.0
+     │   │               └── verifier-sample v0.1.0 (*)
+     │   ├── ark-bn254 v0.4.0
+     │   │   └── soroban-env-host v25.0.1 (*)
+     │   └── soroban-env-host v25.0.1 (*)
+     ├── ark-ff v0.4.2
+     │   ├── ark-bls12-381 v0.4.0 (*)
+     │   ├── ark-bn254 v0.4.0 (*)
+     │   ├── ark-ec v0.4.2 (*)
+     │   ├── ark-poly v0.4.2
+     │   │   └── ark-ec v0.4.2 (*)
+     │   └── soroban-env-host v25.0.1 (*)
+     └── ark-poly v0.4.2 (*)
+error[rejected]: failed to satisfy license requirements
+   ┌─ /usr/local/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/digest-0.10.7/Cargo.toml:29:12
+   │
+29 │ license = "MIT OR Apache-2.0"
+   │            ━━━────━━━━━━━━━━
+   │            │      │
+   │            │      rejected: license is not explicitly allowed
+   │            rejected: license is not explicitly allowed
+   │
+   ├ MIT - MIT License:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ Apache-2.0 - Apache License 2.0:
+   ├   - OSI approved
+   ├   - FSF Free/Libre
+   ├ digest v0.10.7
+     ├── ark-ff v0.4.2
+     │   ├── ark-bls12-381 v0.4.0
+     │   │   └── soroban-env-host v25.0.1
+     │   │       └── soroban-sdk v25.3.0
+     │   │           ├── verifier-sample v0.1.0
+     │   │           └── zk-soroban v0.1.0
+     │   │               └── verifier-sample v0.1.0 (*)
+     │   ├── ark-bn254 v0.4.0
+     │   │   └── soroban-env-host v25.0.1 (*)
+     │   ├── ark-ec v0.4.2
+     │   │   ├── ark-bls12-381 v0.4.0 (*)
+     │   │   ├── ark-bn254 v0.4.0 (*)
+     │   │   └── soroban-env-host v25.0.1 (*)
+     │   ├── ark-poly v0.4.2
