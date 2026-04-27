@@ -71,9 +71,16 @@ impl SafeFrom<u256> for Fr {
 pub struct Bn254;
 
 impl Bn254 {
+    /// BN254 scalar field modulus r (order of G1/G2).
     pub const BASE_MODULUS: ethnum::u256 = ethnum::u256::from_words(
         0x30644e72e131a029b85045b68181585d_u128,
         0x97816a916871ca8d3c208c16d87cfd47_u128,
+    );
+
+    /// BN254 base field modulus p (coordinate field of the curve).
+    pub const FQ_MODULUS: ethnum::u256 = ethnum::u256::from_words(
+        0x30644e72e131a029b85045b68181585d_u128,
+        0x2833e84879b9709142e1f593f0000001_u128,
     );
 
     /// G1 coefficient B for y^2 = x^3 + B
@@ -81,6 +88,47 @@ impl Bn254 {
 
     pub fn is_valid_scalar(val: u256) -> bool {
         val < Self::BASE_MODULUS
+    }
+
+    // ── Canonical byte serialization ──────────────────────────────────────────
+    //
+    // The canonical wire format for BN254 field elements is 32-byte big-endian,
+    // matching the encoding used by snarkjs, circom, and rapidsnark.
+    // Deserialization enforces a strict range check: any input >= modulus is
+    // rejected, preventing malformed scalars from entering field arithmetic.
+
+    /// Encodes a scalar field element as 32-byte big-endian.
+    /// The caller must ensure `a < BASE_MODULUS`; no reduction is applied.
+    pub fn fr_to_bytes(a: u256) -> [u8; 32] {
+        a.to_be_bytes()
+    }
+
+    /// Decodes a scalar field element from 32-byte big-endian encoding.
+    /// Returns `None` if the decoded value is >= r (not a valid Fr element).
+    pub fn fr_from_bytes(bytes: [u8; 32]) -> Option<u256> {
+        let val = u256::from_be_bytes(bytes);
+        if val < Self::BASE_MODULUS {
+            Some(val)
+        } else {
+            None
+        }
+    }
+
+    /// Encodes a base field element as 32-byte big-endian.
+    /// The caller must ensure `a < FQ_MODULUS`; no reduction is applied.
+    pub fn fq_to_bytes(a: u256) -> [u8; 32] {
+        a.to_be_bytes()
+    }
+
+    /// Decodes a base field element from 32-byte big-endian encoding.
+    /// Returns `None` if the decoded value is >= p (not a valid Fq element).
+    pub fn fq_from_bytes(bytes: [u8; 32]) -> Option<u256> {
+        let val = u256::from_be_bytes(bytes);
+        if val < Self::FQ_MODULUS {
+            Some(val)
+        } else {
+            None
+        }
     }
 
     pub fn add(a: u256, b: u256) -> u256 {
@@ -145,12 +193,20 @@ impl Bn254 {
 
     pub fn pow(mut base: u256, mut exp: u256) -> u256 {
         let mut res = u256::from(1u8);
-        while exp > 0 {
-            if exp % 2 == 1 {
-                res = Self::mul(res, base);
-            }
+        for _ in 0..256 {
+            let bit = exp & u256::from(1u8);
+
+            // Mask is MAX if bit is 1, ZERO if bit is 0
+            // wrapping_sub: 0 - 0 = 0, 0 - 1 = MAX
+            let mask = u256::from(0u8).wrapping_sub(bit);
+
+            let product = Self::mul(res, base);
+
+            // Constant-time selection: if bit == 1 { product } else { res }
+            res = (product & mask) | (res & !mask);
+
             base = Self::mul(base, base);
-            exp /= 2;
+            exp >>= 1;
         }
         res
     }
@@ -525,6 +581,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg_attr(miri, ignore)]
     fn test_g1_scalar_mul() {
         // Generator point (roughly G_x, G_y for BN254)
         // Note: For testing, any valid point works.
@@ -550,6 +607,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg_attr(miri, ignore)]
     fn test_g1_msm() {
         let p = G1Affine {
             x: u256::from(1u8),
@@ -570,6 +628,7 @@ mod tests {
     }
 
     #[test]
+    #[cfg_attr(miri, ignore)]
     fn test_g1_msm_identity() {
         let p = G1Affine {
             x: u256::from(1u8),
@@ -582,6 +641,32 @@ mod tests {
     }
 
     #[test]
+    #[cfg_attr(miri, ignore)]
+    fn test_invert() {
+        // invert(2)
+        let a = u256::from(2u8);
+        let a_inv = Bn254::invert(a);
+        let prod = Bn254::mul(a, a_inv);
+        assert_eq!(prod, u256::from(1u8));
+
+        // invert(1)
+        let a = u256::from(1u8);
+        let a_inv = Bn254::invert(a);
+        assert_eq!(a_inv, u256::from(1u8));
+
+        // invert(0) -> 0 by convention in this implementation
+        let a = u256::from(0u8);
+        let a_inv = Bn254::invert(a);
+        assert_eq!(a_inv, u256::from(0u8));
+
+        // invert a larger number
+        let a = u256::from(123456789u32);
+        let a_inv = Bn254::invert(a);
+        let prod = Bn254::mul(a, a_inv);
+        assert_eq!(prod, u256::from(1u8));
+    }
+    #[test]
+    #[cfg_attr(miri, ignore)]
     fn test_g1_msm_mismatched_lengths() {
         let p = G1Affine {
             x: u256::from(1u8),
@@ -591,5 +676,91 @@ mod tests {
         let scalars = [u256::from(1u8), u256::from(2u8)];
         let res = g1_msm(&points, &scalars);
         assert_eq!(res, Err(ZkError::InvalidInput));
+    }
+
+    // ── fr_to_bytes / fr_from_bytes ───────────────────────────────────────────
+
+    #[test]
+    fn fr_to_bytes_zero_is_all_zeros() {
+        assert_eq!(Bn254::fr_to_bytes(u256::from(0u8)), [0u8; 32]);
+    }
+
+    #[test]
+    fn fr_to_bytes_one_is_big_endian() {
+        let mut expected = [0u8; 32];
+        expected[31] = 1;
+        assert_eq!(Bn254::fr_to_bytes(u256::from(1u8)), expected);
+    }
+
+    #[test]
+    fn fr_round_trip_small_value() {
+        let a = u256::from(42u8);
+        assert_eq!(Bn254::fr_from_bytes(Bn254::fr_to_bytes(a)), Some(a));
+    }
+
+    #[test]
+    fn fr_round_trip_max_valid() {
+        let a = Bn254::BASE_MODULUS - u256::from(1u8);
+        assert_eq!(Bn254::fr_from_bytes(Bn254::fr_to_bytes(a)), Some(a));
+    }
+
+    #[test]
+    fn fr_from_bytes_rejects_modulus() {
+        assert_eq!(
+            Bn254::fr_from_bytes(Bn254::fr_to_bytes(Bn254::BASE_MODULUS)),
+            None
+        );
+    }
+
+    #[test]
+    fn fr_from_bytes_rejects_all_ff() {
+        assert_eq!(Bn254::fr_from_bytes([0xFF; 32]), None);
+    }
+
+    #[test]
+    fn fr_from_bytes_rejects_modulus_plus_one() {
+        let over = Bn254::BASE_MODULUS + u256::from(1u8);
+        assert_eq!(Bn254::fr_from_bytes(Bn254::fr_to_bytes(over)), None);
+    }
+
+    // ── fq_to_bytes / fq_from_bytes ───────────────────────────────────────────
+
+    #[test]
+    fn fq_to_bytes_zero_is_all_zeros() {
+        assert_eq!(Bn254::fq_to_bytes(u256::from(0u8)), [0u8; 32]);
+    }
+
+    #[test]
+    fn fq_round_trip_small_value() {
+        let a = u256::from(42u8);
+        assert_eq!(Bn254::fq_from_bytes(Bn254::fq_to_bytes(a)), Some(a));
+    }
+
+    #[test]
+    fn fq_round_trip_max_valid() {
+        let a = Bn254::FQ_MODULUS - u256::from(1u8);
+        assert_eq!(Bn254::fq_from_bytes(Bn254::fq_to_bytes(a)), Some(a));
+    }
+
+    #[test]
+    fn fq_from_bytes_rejects_modulus() {
+        assert_eq!(
+            Bn254::fq_from_bytes(Bn254::fq_to_bytes(Bn254::FQ_MODULUS)),
+            None
+        );
+    }
+
+    #[test]
+    fn fq_from_bytes_rejects_all_ff() {
+        assert_eq!(Bn254::fq_from_bytes([0xFF; 32]), None);
+    }
+
+    #[test]
+    fn fr_and_fq_have_independent_bounds() {
+        // r > p in BN254, so FQ_MODULUS (p) is a valid Fr element but NOT a valid Fq element.
+        // This verifies the two bounds are enforced independently.
+        let p_as_bytes = Bn254::fq_to_bytes(Bn254::FQ_MODULUS);
+        assert_eq!(Bn254::fq_from_bytes(p_as_bytes), None); // p >= p → rejected
+        assert_eq!(Bn254::fr_from_bytes(p_as_bytes), Some(Bn254::FQ_MODULUS)); // p < r → accepted
     }
 }
