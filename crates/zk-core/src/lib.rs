@@ -169,7 +169,7 @@ impl G1Projective {
     pub fn double(&self) -> Self {
         todo!()
     }
-    pub fn add(&self, other: &Self) -> Self {
+    pub fn add(&self, _other: &Self) -> Self {
         todo!()
     }
 }
