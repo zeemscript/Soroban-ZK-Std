@@ -1,0 +1,5 @@
+packages:
+  - "."
+allowBuilds:
+  '0': unrs-resolver
+  unrs-resolver: set this to true or false

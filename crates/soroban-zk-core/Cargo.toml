@@ -1,0 +1,49 @@
+[package]
+name = "soroban-zk-core"
+version = "0.1.0"
+edition = "2021"
+description = "Core cryptographic primitives for Soroban ZK Standard."
+repository = "https://github.com/georgegoldman/Soroban-ZK-Std"
+license.workspace = true
+
+[features]
+# Enables the range-proof prover. Disable for verifier-only WASM deployments
+# to minimize code size.
+prover = []
+
+# Issue #449 — Bulletproofs vector-matrix multiplication shortcuts for WebAssembly.
+# Enables the Wasm-specialized MSM / vector-matrix kernels. On non-wasm targets
+# this feature is a no-op so the crate remains portable and no_std-compatible.
+wasm-msm = []
+
+# Convenience feature that enables everything needed for a Wasm prover build.
+wasm-prover = ["prover", "wasm-msm"]
+
+[dependencies]
+ethnum = {workspace = true}
+num-traits = { version = "0.2.19", default-features = false, features = ["libm"] }
+itertools = { version = "0.15.0", default-features = false }
+sha2 = { version = "0.10", default-features = false }
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+proptest = "1"
+# Trusted reference library used for differential testing (Phase 2). Pinned to
+# the same arkworks 0.6 line already used by soroban-zk-std so the lockfile
+# resolution stays unified. `std` is enabled because these are only ever
+# compiled for host-side tests/benches, never for the no_std target.
+ark-bn254 = { version = "0.6.0", default-features = false, features = ["curve", "std"] }
+ark-ff = { version = "0.6.0", default-features = false, features = ["std"] }
+ark-ec = { version = "0.6.0", default-features = false, features = ["std"] }
+kani = "0.0.1"
+
+[[bench]]
+name = "g1_ops"
+harness = false
+
+# Issue #449 — gas profiling: Bulletproofs vs Groth16.
+# The prover feature is required so benchmark fixtures can generate valid proofs.
+[[bench]]
+name = "bulletproofs_vs_groth16"
+harness = false
+required-features = ["prover"]

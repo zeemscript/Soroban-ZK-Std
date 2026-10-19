@@ -1,0 +1,512 @@
+{
+  "generated_at": "2026-06-27T01:58:41.328Z",
+  "version": "1.0.0",
+  "crates": [
+    {
+      "name": "soroban-zk-core",
+      "path": "crates/soroban-zk-core",
+      "description": "Pure cryptographic math. No Soroban dependencies. Compiles to no_std.",
+      "items": [
+        {
+          "kind": "struct",
+          "name": "ElGamalCiphertext",
+          "doc": "",
+          "signature": "pub struct ElGamalCiphertext"
+        },
+        {
+          "kind": "fn",
+          "name": "encrypt",
+          "doc": "Stub for the encrypt function the contract is calling.",
+          "signature": "pub fn encrypt( amount: u256, _pub_key: &G1Affine, _ephemeral: u256, ) -> Result<Self, ZkError>"
+        },
+        {
+          "kind": "fn",
+          "name": "decrypt_amount_point",
+          "doc": "Stub for decryption that returns the mocked amount point",
+          "signature": "pub fn decrypt_amount_point(&self, _private_key: u256) -> Result<G1Affine, ZkError>"
+        },
+        {
+          "kind": "enum",
+          "name": "ZkError",
+          "doc": "",
+          "signature": "pub enum ZkError"
+        },
+        {
+          "kind": "struct",
+          "name": "Fr",
+          "doc": "",
+          "signature": "pub struct Fr(u256);"
+        },
+        {
+          "kind": "fn",
+          "name": "inner",
+          "doc": "",
+          "signature": "pub fn inner(&self) -> u256"
+        },
+        {
+          "kind": "struct",
+          "name": "G1Affine",
+          "doc": "",
+          "signature": "pub struct G1Affine"
+        },
+        {
+          "kind": "fn",
+          "name": "scalar_mul",
+          "doc": "Bridges the contract's method call to the Bn254 implementation.",
+          "signature": "pub fn scalar_mul(&self, scalar: u256) -> G1Affine"
+        },
+        {
+          "kind": "fn",
+          "name": "add",
+          "doc": "Adds two affine points using the existing projective addition path.",
+          "signature": "pub fn add(&self, other: &G1Affine) -> G1Affine"
+        },
+        {
+          "kind": "fn",
+          "name": "to_affine",
+          "doc": "Converts the projective point back to affine coordinates.",
+          "signature": "pub fn to_affine(&self) -> G1Affine"
+        },
+        {
+          "kind": "trait",
+          "name": "SafeFrom",
+          "doc": "Constant-time, fallible conversion into a cryptographic type.",
+          "signature": "pub trait SafeFrom<T>: Sized"
+        },
+        {
+          "kind": "struct",
+          "name": "Bn254",
+          "doc": "The BN254 elliptic curve group parameters and arithmetic operations.",
+          "signature": "pub struct Bn254;"
+        },
+        {
+          "kind": "struct",
+          "name": "AffinePoint",
+          "doc": "",
+          "signature": "pub struct AffinePoint"
+        },
+        {
+          "kind": "struct",
+          "name": "JacobianPoint",
+          "doc": "",
+          "signature": "pub struct JacobianPoint"
+        },
+        {
+          "kind": "const",
+          "name": "BASE_MODULUS",
+          "doc": "BN254 scalar field modulus r (order of G1/G2).",
+          "signature": "pub const BASE_MODULUS: ethnum::u256 = ethnum::u256::from_words( 0x30644e72e131a029b85045b68181585d_u128, 0x2833e84879b9709143e1f593f0000001_u128, );"
+        },
+        {
+          "kind": "const",
+          "name": "FR_MODULUS",
+          "doc": "",
+          "signature": "pub const FR_MODULUS: ethnum::u256 = ethnum::u256::from_words( 0x30644e72e131a029b85045b68181585d_u128, 0x2833e84879b9709143e1f593f0000001_u128, );"
+        },
+        {
+          "kind": "const",
+          "name": "FQ_MODULUS",
+          "doc": "",
+          "signature": "pub const FQ_MODULUS: ethnum::u256 = ethnum::u256::from_words( 0x30644e72e131a029b85045b68181585d_u128, 0x97816a916871ca8d3c208c16d87cfd47_u128, );"
+        },
+        {
+          "kind": "const",
+          "name": "G1_B",
+          "doc": "",
+          "signature": "pub const G1_B: u256 = u256::from_words(0u128, 3u128);"
+        },
+        {
+          "kind": "const",
+          "name": "LEGENDRE_EXP_FR",
+          "doc": "",
+          "signature": "pub const LEGENDRE_EXP_FR: ethnum::u256 = ethnum::u256::from_words( 0x183227397098d014dc2822db40c0ac2e_u128, 0x9419f4243cdcb848a1f0fac9f8000000_u128, );"
+        },
+        {
+          "kind": "const",
+          "name": "LEGENDRE_EXP_FQ",
+          "doc": "",
+          "signature": "pub const LEGENDRE_EXP_FQ: ethnum::u256 = ethnum::u256::from_words( 0x183227397098d014dc2822db40c0ac2e_u128, 0xcbc0b548b438e5469e10460b6c3e7ea3_u128, );"
+        },
+        {
+          "kind": "fn",
+          "name": "fr_to_bytes",
+          "doc": "",
+          "signature": "pub fn fr_to_bytes(a: u256) -> [u8; 32]"
+        },
+        {
+          "kind": "fn",
+          "name": "fr_from_bytes",
+          "doc": "",
+          "signature": "pub fn fr_from_bytes(bytes: [u8; 32]) -> Option<u256>"
+        },
+        {
+          "kind": "fn",
+          "name": "fq_to_bytes",
+          "doc": "",
+          "signature": "pub fn fq_to_bytes(a: u256) -> [u8; 32]"
+        },
+        {
+          "kind": "fn",
+          "name": "fq_from_bytes",
+          "doc": "",
+          "signature": "pub fn fq_from_bytes(bytes: [u8; 32]) -> Option<u256>"
+        },
+        {
+          "kind": "fn",
+          "name": "sub",
+          "doc": "",
+          "signature": "pub fn sub(a: u256, b: u256) -> u256"
+        },
+        {
+          "kind": "fn",
+          "name": "is_valid_scalar",
+          "doc": "",
+          "signature": "pub fn is_valid_scalar(val: u256) -> bool"
+        },
+        {
+          "kind": "fn",
+          "name": "is_valid_fq",
+          "doc": "Validates a BN254 base field element in Fq.  This ensures the element is within the field modulus and prevents malformed G2 coordinate components from being passed into the native host pairing call.",
+          "signature": "pub fn is_valid_fq(val: u256) -> bool"
+        },
+        {
+          "kind": "fn",
+          "name": "mul",
+          "doc": "",
+          "signature": "pub fn mul(a: u256, b: u256) -> u256"
+        },
+        {
+          "kind": "fn",
+          "name": "pow",
+          "doc": "",
+          "signature": "pub fn pow(base: u256, exp: u256) -> u256"
+        },
+        {
+          "kind": "fn",
+          "name": "invert",
+          "doc": "",
+          "signature": "pub fn invert(a: u256) -> u256"
+        },
+        {
+          "kind": "fn",
+          "name": "mul_fq",
+          "doc": "",
+          "signature": "pub fn mul_fq(a: u256, b: u256) -> u256"
+        },
+        {
+          "kind": "fn",
+          "name": "add_fq",
+          "doc": "",
+          "signature": "pub fn add_fq(a: u256, b: u256) -> u256"
+        },
+        {
+          "kind": "fn",
+          "name": "sub_fq",
+          "doc": "",
+          "signature": "pub fn sub_fq(a: u256, b: u256) -> u256"
+        },
+        {
+          "kind": "fn",
+          "name": "invert_fq",
+          "doc": "",
+          "signature": "pub fn invert_fq(a: u256) -> u256"
+        },
+        {
+          "kind": "fn",
+          "name": "is_valid_g1",
+          "doc": "",
+          "signature": "pub fn is_valid_g1(x: u256, y: u256) -> bool"
+        },
+        {
+          "kind": "fn",
+          "name": "is_valid_g1_subgroup",
+          "doc": "",
+          "signature": "pub fn is_valid_g1_subgroup(x: u256, y: u256) -> bool"
+        },
+        {
+          "kind": "fn",
+          "name": "g1_scalar_mul",
+          "doc": "",
+          "signature": "pub fn g1_scalar_mul(point: G1Projective, scalar: u256) -> G1Projective"
+        },
+        {
+          "kind": "struct",
+          "name": "G1Projective",
+          "doc": "",
+          "signature": "pub struct G1Projective"
+        },
+        {
+          "kind": "fn",
+          "name": "identity",
+          "doc": "",
+          "signature": "pub fn identity() -> Self"
+        },
+        {
+          "kind": "fn",
+          "name": "is_identity",
+          "doc": "",
+          "signature": "pub fn is_identity(&self) -> bool"
+        },
+        {
+          "kind": "fn",
+          "name": "ct_select",
+          "doc": "",
+          "signature": "pub fn ct_select(choice: u128, a: Self, b: Self) -> Self"
+        },
+        {
+          "kind": "fn",
+          "name": "double",
+          "doc": "Doubles the projective point (2 * P) using Jacobian formulas.",
+          "signature": "pub fn double(&self) -> Self"
+        },
+        {
+          "kind": "struct",
+          "name": "DensePolynomial",
+          "doc": "",
+          "signature": "pub struct DensePolynomial<const MAX_COEFFS: usize>"
+        },
+        {
+          "kind": "struct",
+          "name": "SparsePolynomial",
+          "doc": "",
+          "signature": "pub struct SparsePolynomial<const MAX_TERMS: usize>"
+        },
+        {
+          "kind": "fn",
+          "name": "from_coefficients_slice",
+          "doc": "",
+          "signature": "pub fn from_coefficients_slice(coeffs: &[u256]) -> Result<Self, ZkError>"
+        },
+        {
+          "kind": "fn",
+          "name": "zero",
+          "doc": "",
+          "signature": "pub fn zero() -> Self"
+        },
+        {
+          "kind": "fn",
+          "name": "one",
+          "doc": "",
+          "signature": "pub fn one() -> Self"
+        },
+        {
+          "kind": "fn",
+          "name": "is_zero",
+          "doc": "",
+          "signature": "pub fn is_zero(&self) -> bool"
+        },
+        {
+          "kind": "fn",
+          "name": "degree",
+          "doc": "",
+          "signature": "pub fn degree(&self) -> usize"
+        },
+        {
+          "kind": "fn",
+          "name": "coeffs",
+          "doc": "",
+          "signature": "pub fn coeffs(&self) -> &[u256]"
+        },
+        {
+          "kind": "fn",
+          "name": "evaluate",
+          "doc": "",
+          "signature": "pub fn evaluate(&self, x: u256) -> u256"
+        },
+        {
+          "kind": "fn",
+          "name": "try_mul",
+          "doc": "",
+          "signature": "pub fn try_mul(&self, other: &Self) -> Result<Self, ZkError>"
+        },
+        {
+          "kind": "fn",
+          "name": "from_terms_slice",
+          "doc": "",
+          "signature": "pub fn from_terms_slice(terms: &[(usize, u256)]) -> Result<Self, ZkError>"
+        },
+        {
+          "kind": "fn",
+          "name": "terms",
+          "doc": "",
+          "signature": "pub fn terms(&self) -> &[(usize, u256)]"
+        }
+      ]
+    },
+    {
+      "name": "soroban-zk-std",
+      "path": "crates/soroban-zk-std",
+      "description": "Stellar integration. Traits that extend the Soroban Env, host-function mappings, and XDR conversion.",
+      "items": [
+        {
+          "kind": "enum",
+          "name": "ConstantKey",
+          "doc": "",
+          "signature": "pub enum ConstantKey"
+        },
+        {
+          "kind": "fn",
+          "name": "round_constants",
+          "doc": "Return the cached BN254 Poseidon2 round constants, computing and storing them on the first call within the contract.",
+          "signature": "pub fn round_constants(env: &Env) -> Vec<Vec<U256>>"
+        },
+        {
+          "kind": "fn",
+          "name": "mat_diag",
+          "doc": "Return the cached BN254 Poseidon2 matrix diagonal, computing and storing it on the first call within the contract.",
+          "signature": "pub fn mat_diag(env: &Env) -> Vec<U256>"
+        },
+        {
+          "kind": "fn",
+          "name": "fr_modulus",
+          "doc": "Return the cached BN254 Fr modulus, computing and storing it on the first call within the contract.",
+          "signature": "pub fn fr_modulus(env: &Env) -> U256"
+        },
+        {
+          "kind": "fn",
+          "name": "check_budget",
+          "doc": "",
+          "signature": "pub fn check_budget()"
+        },
+        {
+          "kind": "struct",
+          "name": "Groth16Proof",
+          "doc": "",
+          "signature": "pub struct Groth16Proof"
+        },
+        {
+          "kind": "struct",
+          "name": "Groth16VerifyingKey",
+          "doc": "",
+          "signature": "pub struct Groth16VerifyingKey<'a>"
+        },
+        {
+          "kind": "fn",
+          "name": "from_bytes",
+          "doc": "Decodes a Groth16 proof from `A || B || C`, where A and C are G1 points and B is a G2 point.",
+          "signature": "pub fn from_bytes(bytes: &[u8]) -> Result<Self, ZkError>"
+        },
+        {
+          "kind": "fn",
+          "name": "groth16_verify",
+          "doc": "Verifies a Groth16 proof using the rearranged multi-pairing equation:  `e(A, B) == e(alpha, beta) * e(acc, gamma) * e(C, delta)`  where `acc = IC_0 + s_1 * IC_1 + ... + s_n * IC_n`.  This is checked as a single 4-pair product:  `e(A, B) * e(-alpha, beta) * e(-acc, gamma) * e(-C, delta) == 1`",
+          "signature": "pub fn groth16_verify( env: &Env, vk: &Groth16VerifyingKey<'_>, proof: &Groth16Proof, public_inputs: &[u256], ) -> Result<bool, ZkError>"
+        },
+        {
+          "kind": "fn",
+          "name": "validate_soroban_scalar",
+          "doc": "Validates a Soroban U256 as a BN254 scalar. This prevents \"out of bounds\" field element errors in ZK verifiers.",
+          "signature": "pub fn validate_soroban_scalar(_env: &Env, val: U256) -> bool"
+        },
+        {
+          "kind": "trait",
+          "name": "ZkEnv",
+          "doc": "Helper trait to add this functionality directly to the Env",
+          "signature": "pub trait ZkEnv"
+        },
+        {
+          "kind": "trait",
+          "name": "HostConvert",
+          "doc": "Zero-copy conversion from a Soroban host-managed [`U256`] into a validated BN254 [`Fr`] field element.  This trait is designed to wrap the `env.crypto().bn254_fr_from_u256()` host call when it becomes available as a native Soroban API.  The current implementation performs the conversion in software via big-endian byte mapping with no heap allocation, then delegates range validation to [`Fr::safe_from`].",
+          "signature": "pub trait HostConvert"
+        },
+        {
+          "kind": "struct",
+          "name": "ZkContract",
+          "doc": "",
+          "signature": "pub struct ZkContract;"
+        },
+        {
+          "kind": "fn",
+          "name": "validate_scalar",
+          "doc": "Benchmark function to ensure CI measures REAL library footprint.",
+          "signature": "pub fn validate_scalar(env: Env, val: U256) -> bool"
+        },
+        {
+          "kind": "fn",
+          "name": "poseidon2_hash",
+          "doc": "Poseidon2 hash of a list of BN254 field elements, using the instance-storage cache for the round constants and matrix diagonal (Issue #124).  The first invocation populates the cache from code; later invocations reuse the constants stored in `StorageType::Instance` instead of rebuilding them on every call.",
+          "signature": "pub fn poseidon2_hash(env: Env, inputs: soroban_sdk::Vec<U256>) -> U256"
+        },
+        {
+          "kind": "struct",
+          "name": "G2Affine",
+          "doc": "",
+          "signature": "pub struct G2Affine"
+        },
+        {
+          "kind": "fn",
+          "name": "to_bytes",
+          "doc": "Serializes the G2 point into a 128-byte array according to CAP-0074 §3.2 / EIP-197.  ## Byte Layout The 128 bytes are structured as: - Bytes 0..32:   `x.1` (X imaginary / c1) - Bytes 32..64:  `x.0` (X real / c0) - Bytes 64..96:  `y.1` (Y imaginary / c1) - Bytes 96..128: `y.0` (Y real / c0)  All 32-byte chunks are encoded in Big-Endian format.",
+          "signature": "pub fn to_bytes(&self) -> [u8; 128]"
+        },
+        {
+          "kind": "fn",
+          "name": "generator",
+          "doc": "",
+          "signature": "pub fn generator() -> Self"
+        },
+        {
+          "kind": "fn",
+          "name": "pairing_check",
+          "doc": "Evaluates the BN254 pairing check e(A1, B1) * ... * e(An, Bn) == 1.",
+          "signature": "pub fn pairing_check(env: &Env, pairs: &[(G1Affine, G2Affine)]) -> Result<bool, ZkError>"
+        },
+        {
+          "kind": "struct",
+          "name": "Poseidon2Sponge",
+          "doc": "Poseidon2 sponge over BN254 Fr (t=3, rate=2, capacity=1).  Directly calls `env.crypto_hazmat().poseidon2_permutation()` so the permutation runs as a single host call — no guest-side loop overhead.  # Example ```ignore let mut sponge = Poseidon2Sponge::new(&env); sponge.absorb(&inputs); let digest = sponge.squeeze(); ```",
+          "signature": "pub struct Poseidon2Sponge"
+        },
+        {
+          "kind": "fn",
+          "name": "new",
+          "doc": "Create a new sponge with zeroed state, building the BN254 constants from code (no contract storage required).  The round constants and matrix diagonal are computed once here and reused across every [`Poseidon2Sponge::absorb`]/[`Poseidon2Sponge::squeeze`] permutation, rather than being rebuilt on each permutation.",
+          "signature": "pub fn new(env: &Env) -> Self"
+        },
+        {
+          "kind": "fn",
+          "name": "new_cached",
+          "doc": "Create a new sponge whose BN254 constants are sourced from the contract instance storage cache (Issue #124).  On the first invocation within a contract the constants are computed and written to `StorageType::Instance`; subsequent invocations read them back from storage instead of rebuilding them. Must be called from within a contract invocation context (it touches instance storage).",
+          "signature": "pub fn new_cached(env: &Env) -> Self"
+        },
+        {
+          "kind": "fn",
+          "name": "absorb",
+          "doc": "Absorb a slice of BN254 Fr field elements into the sponge.",
+          "signature": "pub fn absorb(&mut self, inputs: &[U256])"
+        },
+        {
+          "kind": "fn",
+          "name": "squeeze",
+          "doc": "Squeeze one field element.  Pads and applies the permutation if any unprocessed input remains, then returns the first element of the rate portion.",
+          "signature": "pub fn squeeze(&mut self) -> U256"
+        },
+        {
+          "kind": "fn",
+          "name": "hash_to_field",
+          "doc": "Hash a slice of BN254 Fr field elements to a single field element.  Compatible with Noir/Circom Poseidon2 constraints (t=3, d=5, rate=2). Uses capacity-zero sponge initialisation.",
+          "signature": "pub fn hash_to_field(env: &Env, inputs: &[U256]) -> U256"
+        },
+        {
+          "kind": "fn",
+          "name": "hash_to_field_cached",
+          "doc": "Instance-cached variant of [`hash_to_field`] (Issue #124).  Identical output to [`hash_to_field`], but the BN254 round constants and matrix diagonal are loaded from (and lazily populated into) the contract instance storage cache rather than rebuilt from code. Must be called from within a contract invocation context.",
+          "signature": "pub fn hash_to_field_cached(env: &Env, inputs: &[U256]) -> U256"
+        },
+        {
+          "kind": "struct",
+          "name": "Transcript",
+          "doc": "Fiat-Shamir transcript built on top of the BN254 Poseidon2 sponge.  The transcript is stateful: each absorb updates the sponge state, and each squeeze advances the permutation before producing the next challenge.",
+          "signature": "pub struct Transcript"
+        },
+        {
+          "kind": "fn",
+          "name": "squeeze_challenge",
+          "doc": "Squeeze the next Fiat-Shamir challenge as a validated BN254 `Fr`.",
+          "signature": "pub fn squeeze_challenge(&mut self) -> Result<Fr, ZkError>"
+        }
+      ]
+    }
+  ]
+}

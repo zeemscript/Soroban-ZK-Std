@@ -20,7 +20,7 @@ jobs:
       - name: Setup Stable Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: wasm32-unknown-unknown
+          targets: wasm32v1-none
           components: rustfmt, clippy
 
       - name: Cache Cargo Registry
@@ -42,10 +42,36 @@ jobs:
         run: cargo test --release
 
       - name: 🔨 Build WASM (verifier-sample contract)
-        run: cargo build --target wasm32-unknown-unknown --release -p verifier-sample
+        run: cargo build --target wasm32v1-none --release -p verifier-sample
 
       - name: 🛡️ Audit Dependencies (cargo-deny)
         uses: EmbarkStudios/cargo-deny-action@v2
+
+  halo2-primitives:
+    name: 🧩 Halo2 Verifier Primitives
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Stable Rust Toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Cargo Registry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-halo2-${{ hashFiles('**/Cargo.lock') }}
+
+      # Exercises the no_std Halo2 verifier primitives in soroban-zk-core
+      # (custom-gate evaluation loop, permutation grand-product argument, and the
+      # recursion/accumulation state) without depending on the higher-level
+      # soroban-zk-std verifier crate.
+      - name: 🧪 Run Halo2 primitive tests
+        run: cargo test -p soroban-zk-core --lib halo2
 
   miri-check:
     name: 🔬 Memory Safety (Miri)
@@ -58,13 +84,16 @@ jobs:
         with:
           components: miri
 
-      - name: 🧪 Run Miri on zk-core only
-        # zk-core is pure no_std arithmetic — safe for Miri.
-        # soroban-sdk does filesystem I/O on Drop (snapshot writes),
-        # which Miri blocks under isolation. Never run Miri on SDK tests.
-        run: cargo +nightly miri test -p zk-core
+      - name: Disable vendoring for Miri
+        run: rm -f .cargo/config.toml
+
+      - name: 🧪 Run Miri on soroban-zk-core library
+        run: cargo +nightly miri test -p soroban-zk-core --lib
         env:
           MIRIFLAGS: -Zmiri-disable-isolation
+
+      - name: 🧪 Run native integration tests
+        run: cargo +nightly test -p soroban-zk-core --test eip196_vectors
 
   wasm-size-check:
     name: 📦 WASM 64KB Limit Check
@@ -76,7 +105,7 @@ jobs:
       - name: Setup Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          targets: wasm32-unknown-unknown
+          targets: wasm32v1-none
 
       - name: Cache Cargo Registry
         uses: actions/cache@v4
@@ -88,11 +117,11 @@ jobs:
           key: ${{ runner.os }}-cargo-wasm-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Build verifier-sample Contract WASM
-        run: cargo build --release --target wasm32-unknown-unknown -p verifier-sample
+        run: cargo build --release --target wasm32v1-none -p verifier-sample
 
       - name: Check WASM Size
         run: |
-          WASM_FILE="target/wasm32-unknown-unknown/release/verifier_sample.wasm"
+          WASM_FILE="target/wasm32v1-none/release/verifier_sample.wasm"
 
           if [ ! -f "$WASM_FILE" ]; then
             echo "❌ Error: verifier_sample.wasm not found!"

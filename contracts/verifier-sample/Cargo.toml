@@ -9,8 +9,8 @@ crate-type = ["cdylib", "rlib"]  # cdylib for WASM, rlib so tests can link again
 
 [dependencies]
 soroban-sdk = { workspace = true }
-zk-soroban = { workspace = true }
-# zk-soroban = { path = "../../crates/zk-soroban" }
+soroban-zk-std = { workspace = true }
+# soroban-zk-std = { path = "../../crates/soroban-zk-std" }
 
 [dev-dependencies]
 soroban-sdk = { workspace = true, features = ["testutils"] }

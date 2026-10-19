@@ -1,6 +1,6 @@
 #![no_std]
 use soroban_sdk::{contract, contractimpl, Env, U256};
-use zk_soroban::ZkEnv;
+use soroban_zk_std::ZkEnv;
 
 #[contract]
 pub struct Verifier;

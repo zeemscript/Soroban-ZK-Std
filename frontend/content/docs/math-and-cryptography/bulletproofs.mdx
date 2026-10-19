@@ -1,0 +1,207 @@
+---
+title: "Bulletproofs Range Validation"
+description: "Inner-product argument for 64-bit range proofs in Soroban-ZK-Std"
+protocol: "25"
+cap: "CAP-0075"
+---
+
+# Bulletproofs Range Validation
+
+<div align="center">
+
+## Inner-Product Argument for 64-bit Range Proofs
+
+**Soroban-ZK-Std**
+
+</div>
+
+---
+
+# 1. Introduction
+
+Bulletproofs are a class of zero-knowledge range proof systems that allow a prover to demonstrate that a committed value lies within a given interval without revealing the value itself.
+
+In this specification, we focus on **64-bit range proofs**, proving that a secret integer $v$ satisfies:
+
+$v \in [0, 2^{64} - 1]$
+
+The construction is based on an **inner-product argument**, which enables logarithmic proof size and verifier efficiency.
+
+---
+
+# 2. Commitment Scheme
+
+The prover begins by committing to a value $v$ using a Pedersen commitment:
+
+$C = vG + rH$
+
+where:
+
+* $G, H$ are independent group generators
+* $r$ is a blinding factor
+* arithmetic is performed in an elliptic curve group
+
+This commitment hides $v$ while binding the prover to a specific value.
+
+---
+
+# 3. Bit Decomposition
+
+To prove that $v$ is within range, the value is decomposed into bits:
+
+$v = \sum_{i=0}^{63} b_i 2^i$
+
+where each bit satisfies:
+
+$b_i \in {0,1}$
+
+The correctness of the range proof depends on enforcing binary constraints on all $b_i$.
+
+---
+
+# 4. Vector Representation
+
+Define vectors:
+
+$a_L = (b_0, b_1, ..., b_{63})$
+
+and
+
+$a_R = a_L - \mathbf{1}$
+
+where $\mathbf{1}$ is the vector of all ones.
+
+The binary constraint is enforced via:
+
+$a_L \circ a_R = 0$
+
+where $\circ$ denotes the Hadamard (element-wise) product.
+
+---
+
+# 5. Inner Product Argument
+
+Bulletproofs reduce the verification problem to an inner-product relation.
+
+The prover constructs vectors $a$ and $b$ such that:
+
+$\langle a, b \rangle = t$
+
+where $t$ is a scalar derived from the commitment and constraints.
+
+The verifier checks consistency using recursive folding of vectors.
+
+---
+
+# 6. Logarithmic Reduction
+
+The inner-product argument proceeds by recursively halving vector sizes.
+
+At each step, the prover and verifier compute:
+
+* linear combinations of vector halves
+* scalar challenges from the verifier
+
+This reduces complexity from $O(n)$ to $O(\log n)$ rounds.
+
+---
+
+# 7. Challenge Scalars
+
+At each round, the verifier provides a random challenge:
+
+$x, y, z \in \mathbb{F}_p$
+
+These scalars are used to compress vector commitments and enforce binding between:
+
+* left vector
+* right vector
+* inner product result
+
+---
+
+# 8. Commitment Folding
+
+The vectors are updated as:
+
+$a' = a_L \cdot x + a_R \cdot x^{-1}$
+
+$b' = b_L \cdot x^{-1} + b_R \cdot x$
+
+This folding preserves the inner product while reducing dimension.
+
+---
+
+# 9. Final Check
+
+After repeated folding, the prover is left with a single scalar relation:
+
+$\langle a, b \rangle = t$
+
+The verifier checks this directly against commitments.
+
+---
+
+# 10. Range Constraint Enforcement
+
+To ensure $v$ lies in $[0, 2^{64}-1]$, the bit decomposition must satisfy:
+
+$b_i (1 - b_i) = 0$
+
+This enforces binary correctness.
+
+Additionally:
+
+$\sum_{i=0}^{63} b_i 2^i = v$
+
+ensures consistency with the committed value.
+
+---
+
+# 11. Soundness Intuition
+
+If any bit is not binary or the decomposition is inconsistent, the inner-product relation fails with overwhelming probability due to random challenge scalars.
+
+The logarithmic structure prevents brute-force cheating strategies.
+
+---
+
+# 12. Efficiency Properties
+
+Bulletproofs achieve:
+
+* logarithmic proof size
+* no trusted setup
+* efficient verifier checks
+* compact inner-product representation
+
+This makes them suitable for constrained environments such as smart contracts and ZK systems.
+
+---
+
+# 13. Relevance to Soroban-ZK-Std
+
+In Soroban-style environments, Bulletproofs provide:
+
+* efficient range validation
+* minimal commitment overhead
+* compatibility with elliptic curve primitives
+* reusable inner-product argument structures
+
+They are particularly useful for enforcing constraints on:
+
+* token balances
+* private state values
+* bounded arithmetic in ZK circuits
+
+---
+
+# 14. Summary
+
+Bulletproofs range proofs use an inner-product argument to efficiently prove that a committed value lies within a bounded range.
+
+Through recursive vector folding and binary decomposition constraints, they achieve logarithmic proof size without requiring trusted setup.
+
+This makes them a powerful primitive for zero-knowledge systems requiring efficient range validation.
+
+---

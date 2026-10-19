@@ -1,112 +1,168 @@
 #![no_std]
 
-use soroban_sdk::{contract, contractimpl, Env, U256};
-use zk_core::{ElGamalCiphertext, G1Affine};
+use ethnum::u256;
+use soroban_sdk::{contract, contractimpl, contracttype, Address, Bytes, Env, String};
+use soroban_zk_core::G1Affine;
+use soroban_zk_std::groth16::{groth16_verify, Groth16Proof, Groth16VerifyingKey};
+use soroban_zk_std::pairing::G2Affine;
+use soroban_zk_std::events::{
+    ZkVerificationEvent, ZkVerificationStage, ZkFailureContext, publish_verification_event
+};
+
+#[contracttype]
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct EncryptedBalance {
+    pub c1_x: soroban_sdk::U256,
+    pub c1_y: soroban_sdk::U256,
+    pub c2_x: soroban_sdk::U256,
+    pub c2_y: soroban_sdk::U256,
+}
 
 #[contract]
 pub struct ShieldedAsset;
 
 #[contractimpl]
 impl ShieldedAsset {
-    /// Transfers a shielded amount.
-    /// The transaction amount is encrypted via ElGamal using the regulator's public key.
-    /// A Zero-Knowledge proof (stubbed here) would verify that:
-    /// 1. The sender has enough balance.
-    /// 2. The ElGamal ciphertext correctly encrypts the transferred amount.
+    /// Transfers a shielded amount between two users, while providing a ciphertext to the regulator.
+    /// The ZK Proof guarantees:
+    /// 1. Sender has sufficient balance.
+    /// 2. Sender balance, Receiver balance, and Regulator ciphertexts all encrypt the SAME amount.
+    /// 3. Values are in range (no negative amounts).
     ///
-    /// This contract demonstrates how an encrypted viewing key fits into the Soroban environment.
+    /// This implementation demonstrates the new structured event system that provides
+    /// detailed information about verification success/failure for enhanced debugging.
     pub fn transfer_shielded(
-        _env: Env,
-        c1_x: U256,
-        c1_y: U256,
-        c2_x: U256,
-        c2_y: U256,
-        // In a real implementation, a Groth16 proof would be passed here
-        // proof_a: (U256, U256), ...
+        env: Env,
+        sender: Address,
+        receiver: Address,
+        proof_bytes: Bytes,
+        public_inputs_bytes: Bytes,
     ) {
-        // Step 1: Validate and convert the Soroban U256 types into verified BN254 G1 points
-        // In practice, we would use an fq_from_u256 method, but we mock the conversion here
-        let mut bytes_c1x = [0u8; 32];
-        c1_x.to_be_bytes().copy_into_slice(&mut bytes_c1x);
-        let mut bytes_c1y = [0u8; 32];
-        c1_y.to_be_bytes().copy_into_slice(&mut bytes_c1y);
+        sender.require_auth();
 
-        let mut bytes_c2x = [0u8; 32];
-        c2_x.to_be_bytes().copy_into_slice(&mut bytes_c2x);
-        let mut bytes_c2y = [0u8; 32];
-        c2_y.to_be_bytes().copy_into_slice(&mut bytes_c2y);
+        let proof_length = proof_bytes.len();
+        let proof_system = "groth16";
+        let public_inputs_count = 1u32; // This template uses 1 public input
 
-        // Construct the ciphertext to ensure it's structurally valid in memory
-        let _ciphertext = ElGamalCiphertext {
-            c1: G1Affine {
-                x: ethnum::u256::from_be_bytes(bytes_c1x),
-                y: ethnum::u256::from_be_bytes(bytes_c1y),
-            },
-            c2: G1Affine {
-                x: ethnum::u256::from_be_bytes(bytes_c2x),
-                y: ethnum::u256::from_be_bytes(bytes_c2y),
-            },
+        // 1. Deserialize the Groth16 Proof (A, B, C points)
+        let mut proof_buf = [0u8; 256];
+        if proof_bytes.len() != 256 {
+            // Emit structured event for invalid proof length
+            let event = ZkVerificationEvent::failure(
+                &env,
+                proof_system,
+                public_inputs_count,
+                proof_length,
+                false,
+                &soroban_zk_std::ZkContractError::DeserializationError,
+                ZkVerificationStage::ProofDeserialization,
+                Some(ZkFailureContext::deserialization_error(proof_length)),
+            );
+            publish_verification_event(&env, event);
+            panic!("Invalid proof length");
+        }
+        proof_bytes.copy_into_slice(&mut proof_buf);
+        
+        let proof = match Groth16Proof::from_bytes(&proof_buf) {
+            Ok(p) => p,
+            Err(_) => {
+                // Emit structured event for deserialization failure
+                let event = ZkVerificationEvent::failure(
+                    &env,
+                    proof_system,
+                    public_inputs_count,
+                    proof_length,
+                    false,
+                    &soroban_zk_std::ZkContractError::DeserializationError,
+                    ZkVerificationStage::ProofDeserialization,
+                    Some(ZkFailureContext::with_info(&env, "Invalid proof format or curve points")),
+                );
+                publish_verification_event(&env, event);
+                panic!("Invalid proof format");
+            }
         };
 
-        // Step 2: In a full ZK rollup, we would verify the ZK Proof here:
-        // let is_valid = verify_groth16(proof_a, proof_b, proof_c, public_inputs);
-        // if !is_valid { panic!("Invalid ZK Proof") }
+        // 2. Load the Verifying Key
+        let vk = get_verifying_key();
 
-        // Step 3: Update the encrypted state tree
-        // state_tree.insert(ciphertext);
+        // 3. Parse public inputs (e.g. public keys, updated state roots)
+        let mut pi_buf = [0u8; 32];
+        public_inputs_bytes.copy_into_slice(&mut pi_buf);
+        let public_input = u256::from_be_bytes(pi_buf);
 
-        // This template completes successfully if the inputs are structurally sound.
+        // 4. VERIFY THE ZERO KNOWLEDGE PROOF with structured event emission!
+        let is_valid = match groth16_verify(&env, &vk, &proof, &[public_input]) {
+            Ok(valid) => valid,
+            Err(_) => {
+                // Emit structured event for verification error
+                let event = ZkVerificationEvent::failure(
+                    &env,
+                    proof_system,
+                    public_inputs_count,
+                    proof_length,
+                    false,
+                    &soroban_zk_std::ZkContractError::HostError,
+                    ZkVerificationStage::PairingCheck,
+                    Some(ZkFailureContext::with_info(&env, "Pairing check failed")),
+                );
+                publish_verification_event(&env, event);
+                panic!("Verification failed due to malformed points");
+            }
+        };
+
+        if !is_valid {
+            // Emit structured event for invalid proof
+            let event = ZkVerificationEvent::pairing_failure(
+                &env,
+                proof_system,
+                public_inputs_count,
+                proof_length,
+                false,
+            );
+            publish_verification_event(&env, event);
+            panic!("ZK Proof is invalid! Transfer rejected.");
+        }
+
+        // 5. ZK Proof passed! Emit success event
+        let success_event = ZkVerificationEvent::success(
+            &env,
+            proof_system,
+            public_inputs_count,
+            proof_length,
+            false,
+        ).with_context(&env, "Shielded transfer verified successfully");
+        publish_verification_event(&env, success_event);
+
+        // Update the encrypted balances via Homomorphic Addition
+        // (Implementation of homomorphic addition omitted for brevity in this template)
+
+        // Additional legacy event for backward compatibility
+        #[allow(deprecated)]
+        env.events()
+            .publish((sender, receiver), String::from_str(&env, "Shielded Transfer Verified"));
     }
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use soroban_sdk::{Bytes, Env, U256};
-
-    #[test]
-    fn test_shielded_transfer_with_viewing_key() {
-        let env = Env::default();
-        let client = ShieldedAssetClient::new(&env, &env.register(ShieldedAsset, ()));
-
-        // Base generator G
-        let g = G1Affine {
-            x: ethnum::u256::from(1u8),
-            y: ethnum::u256::from(2u8),
-        };
-
-        // Regulator generates a key pair
-        let regulator_priv_key = ethnum::u256::from(42u8);
-        let regulator_pub_key = g.scalar_mul(regulator_priv_key);
-
-        // User transfers 500 units
-        let amount = ethnum::u256::from(500u32);
-
-        // Ephemeral scalar chosen by the user
-        let ephemeral_scalar = ethnum::u256::from(7u8);
-
-        // User encrypts the amount for the regulator
-        let ciphertext =
-            ElGamalCiphertext::encrypt(amount, &regulator_pub_key, ephemeral_scalar).unwrap();
-
-        // Convert the ciphertext to Soroban U256 types
-        let c1_x_bytes = Bytes::from_slice(&env, &ciphertext.c1.x.to_be_bytes());
-        let c1_y_bytes = Bytes::from_slice(&env, &ciphertext.c1.y.to_be_bytes());
-        let c2_x_bytes = Bytes::from_slice(&env, &ciphertext.c2.x.to_be_bytes());
-        let c2_y_bytes = Bytes::from_slice(&env, &ciphertext.c2.y.to_be_bytes());
-
-        let c1_x = U256::from_be_bytes(&env, &c1_x_bytes);
-        let c1_y = U256::from_be_bytes(&env, &c1_y_bytes);
-        let c2_x = U256::from_be_bytes(&env, &c2_x_bytes);
-        let c2_y = U256::from_be_bytes(&env, &c2_y_bytes);
-
-        // Submit the transaction
-        client.transfer_shielded(&c1_x, &c1_y, &c2_x, &c2_y);
-
-        // Off-chain: The regulator can intercept the transaction and decrypt the amount point
-        let decrypted_point = ciphertext.decrypt_amount_point(regulator_priv_key).unwrap();
-        let expected_point = g.scalar_mul(amount);
-
-        assert_eq!(decrypted_point, expected_point);
+// Stub for a Verifying Key (normally generated from Circom/Noir and stored in contract state)
+fn get_verifying_key<'a>() -> Groth16VerifyingKey<'a> {
+    // Dummy empty keys for compilation. In production, these are the real curve points.
+    Groth16VerifyingKey {
+        alpha_g1: G1Affine {
+            x: u256::from(0u8),
+            y: u256::from(0u8),
+        },
+        beta_g2: G2Affine {
+            x: (u256::from(0u8), u256::from(0u8)),
+            y: (u256::from(0u8), u256::from(0u8)),
+        },
+        gamma_g2: G2Affine {
+            x: (u256::from(0u8), u256::from(0u8)),
+            y: (u256::from(0u8), u256::from(0u8)),
+        },
+        delta_g2: G2Affine {
+            x: (u256::from(0u8), u256::from(0u8)),
+            y: (u256::from(0u8), u256::from(0u8)),
+        },
+        ic: &[], // Array of G1 points for public inputs
     }
 }

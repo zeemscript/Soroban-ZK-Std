@@ -1,0 +1,286 @@
+---
+title: "Getting Started Guide"
+description: "Step-by-step instructions for integrating Soroban-ZK-Std into a new Soroban smart contract"
+protocol: "25"
+cap: "CAP-0075"
+---
+
+# Getting Started Guide
+
+> **Step-by-step instructions for integrating Soroban-ZK-Std into a new Soroban smart contract.**
+
+## Overview
+
+This guide walks you through adding zero-knowledge proof capabilities to your Soroban contract using the `Soroban-ZK-Std` library. By the end, you will have a working contract that can verify Groth16 proofs, hash with Poseidon2, and perform BN254 pairing checks — all within Soroban's WASM and instruction budget limits.
+
+---
+
+## Prerequisites
+
+Before starting, ensure you have the following installed:
+
+| Tool | Version | Installation Command |
+|------|---------|---------------------|
+| **Rust** | nightly (recommended) or stable | `curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs \| sh` |
+| **WebAssembly target** | — | `rustup target add wasm32-unknown-unknown` |
+| **Soroban CLI** | latest | `cargo install --locked soroban-cli` |
+| **Make** | system | `apt install build-essential` (Linux) or `xcode-select --install` (macOS) |
+
+> **Verify your installation:**
+> ```bash
+> rustc --version
+> cargo --version
+> soroban --version
+> ```
+
+---
+
+## Step 1: Create a New Soroban Contract
+
+If you don't already have a contract, create one using the Soroban CLI:
+
+```bash
+soroban contract init my-zk-contract
+cd my-zk-contract
+```
+
+This generates a basic Soroban contract scaffold with a `Cargo.toml`, `src/lib.rs`, and a test file.
+
+---
+
+## Step 2: Add Soroban-ZK-Std as a Dependency
+
+Edit your `Cargo.toml` to add the `soroban-zk-std` crate:
+
+```toml
+[dependencies]
+soroban-sdk = "25.0.0"
+soroban-zk-std = { git = "https://github.com/georgegoldman/Soroban-ZK-Std" }
+
+# You may also need these for field arithmetic:
+ethnum = "1.3"
+```
+
+> **Note:** The exact Soroban SDK version should match the protocol version your contract targets. Check the [Soroban documentation](https://developers.stellar.org/docs/soroban) for the latest compatibility matrix.
+
+
+## Step 3: Import the Library in Your Contract
+
+In your `src/lib.rs`, import the types and functions you need:
+
+```rust
+#![no_std]
+use soroban_sdk::{contract, contractimpl, Env, Vec};
+use soroban_soroban_zk_core::{G1Affine, Bn254};
+use soroban_zk_std::pairing::{G2Affine, pairing_check};
+use soroban_zk_std::poseidon2::Poseidon2;
+use soroban_zk_std::ZkError;
+```
+
+---
+
+## Step 4: Verify a Groth16 Proof
+
+Here is a minimal contract that exposes a Groth16 proof verification endpoint:
+
+```rust
+#[contract]
+pub struct ZKVerifier;
+
+#[contractimpl]
+impl ZKVerifier {
+    /// Verifies a Groth16 proof given the verification key and public inputs.
+    pub fn verify(
+        env: Env,
+        proof_bytes: Bytes,
+        vk_bytes: Bytes,
+        public_inputs_bytes: Bytes,
+    ) -> bool {
+        // 1. Deserialize the Groth16 Proof (A, B, C points)
+        let mut proof_buf = [0u8; 256];
+        proof_bytes.copy_into_slice(&mut proof_buf);
+        let proof = Groth16Proof::from_bytes(&proof_buf).expect("Invalid proof format");
+
+        // 2. Deserialize the Verifying Key
+        // In a real contract, the Verifying Key would be stored in the contract's persistent state.
+        let vk = get_verifying_key(); // Fetch from storage
+
+        // 3. Parse public inputs
+        let mut pi_buf = [0u8; 32];
+        public_inputs_bytes.copy_into_slice(&mut pi_buf);
+        let public_input = ethnum::u256::from_be_bytes(pi_buf);
+
+        // 4. VERIFY THE ZERO KNOWLEDGE PROOF!
+        soroban_zk_std::groth16::groth16_verify(&env, &vk, &proof, &[public_input]).unwrap_or(false)
+    }
+}
+```
+
+> **Key insight:** The `groth16_verify` function automatically delegates to the optimal `bn254_multi_pairing_check` host function under the hood, ensuring the verification uses minimal WASM instructions and gas.
+
+
+## Step 5: Use Poseidon2 Hashing
+
+To hash values in your contract using the native Poseidon2 host function:
+
+```rust
+#[contractimpl]
+impl ZKVerifier {
+    /// Hashes two field elements using Poseidon2.
+    pub fn hash_two_values(env: Env, left: u256, right: u256) -> u256 {
+        Poseidon2::hash_two(&env, left, right)
+    }
+
+    /// Computes a Merkle root from leaves using Poseidon2 as the hash function.
+    pub fn compute_merkle_root(env: Env, leaves: Vec<u256>) -> u256 {
+        // Build the Merkle tree bottom-up using Poseidon2 hashing
+        let mut current_level: Vec<u256> = leaves;
+
+        while current_level.len() > 1 {
+            let mut next_level: Vec<u256> = Vec::new(&env);
+            for chunk in current_level.chunks(2) {
+                let left = chunk[0];
+                let right = if chunk.len() > 1 { chunk[1] } else { left };
+                let hash = Poseidon2::hash_two(&env, left, right);
+                next_level.push_back(hash);
+            }
+            current_level = next_level;
+        }
+
+        current_level.get(0).unwrap_or(u256::from(0u8))
+    }
+}
+```
+
+---
+
+## Step 6: Build and Test
+
+### Build the WASM Contract
+
+```bash
+cargo build --target wasm32-unknown-unknown --release
+```
+
+### Check WASM Size
+
+```bash
+twiggy top target/wasm32-unknown-unknown/release/my_zk_contract.wasm
+```
+
+Your contract should be well under Soroban's **64KB** limit. If it exceeds this, check for accidental `std` dependencies.
+
+### Run Tests
+
+```bash
+cargo test
+```
+
+
+## Step 7: Deploy and Invoke
+
+### Deploy to a Local Test Network
+
+```bash
+soroban contract deploy \
+    --wasm target/wasm32-unknown-unknown/release/my_zk_contract.wasm \
+    --source <your-identity> \
+    --network local
+```
+
+### Invoke the Contract
+
+```bash
+soroban contract invoke \
+    --id <contract-id> \
+    --source <your-identity> \
+    --network local \
+    -- \
+    verify \
+    --proof_a_bytes <hex-encoded-proof-a> \
+    --proof_b_bytes <hex-encoded-proof-b> \
+    --proof_c_bytes <hex-encoded-proof-c> \
+    --vk_alpha_g1_bytes <hex-encoded-vk-alpha> \
+    --vk_beta_g2_bytes <hex-encoded-vk-beta> \
+    --vk_gamma_g2_bytes <hex-encoded-vk-gamma> \
+    --vk_delta_g2_bytes <hex-encoded-vk-delta> \
+    --public_inputs <hex-encoded-public-inputs>
+```
+
+---
+
+## Complete Example Contract
+
+Here is a complete, minimal contract that uses Soroban-ZK-Std to implement a **Compliant Private USDC** Shielded Transfer:
+
+```rust
+#![no_std]
+use soroban_sdk::{contract, contractimpl, Address, Bytes, Env};
+use ethnum::u256;
+use soroban_zk_core::G1Affine;
+use soroban_zk_std::pairing::G2Affine;
+use soroban_zk_std::groth16::{groth16_verify, Groth16Proof, Groth16VerifyingKey};
+
+#[contract]
+pub struct CompliantShieldedUSDC;
+
+#[contractimpl]
+impl CompliantShieldedUSDC {
+    pub fn transfer_shielded(
+        env: Env,
+        sender: Address,
+        receiver: Address,
+        proof_bytes: Bytes,
+        public_inputs_bytes: Bytes,
+    ) {
+        sender.require_auth();
+
+        let mut proof_buf = [0u8; 256];
+        proof_bytes.copy_into_slice(&mut proof_buf);
+        let proof = Groth16Proof::from_bytes(&proof_buf).expect("Invalid proof");
+
+        let vk = get_verifying_key();
+
+        let mut pi_buf = [0u8; 32];
+        public_inputs_bytes.copy_into_slice(&mut pi_buf);
+        let public_input = u256::from_be_bytes(pi_buf);
+
+        let is_valid = groth16_verify(&env, &vk, &proof, &[public_input]).unwrap();
+        if !is_valid {
+            panic!("ZK Proof is invalid!");
+        }
+        
+        env.events().publish((sender, receiver), "Shielded Transfer Verified");
+    }
+}
+
+fn get_verifying_key<'a>() -> Groth16VerifyingKey<'a> {
+    Groth16VerifyingKey {
+        alpha_g1: G1Affine { x: u256::from(0u8), y: u256::from(0u8) },
+        beta_g2: G2Affine { x: (u256::from(0u8), u256::from(0u8)), y: (u256::from(0u8), u256::from(0u8)) },
+        gamma_g2: G2Affine { x: (u256::from(0u8), u256::from(0u8)), y: (u256::from(0u8), u256::from(0u8)) },
+        delta_g2: G2Affine { x: (u256::from(0u8), u256::from(0u8)), y: (u256::from(0u8), u256::from(0u8)) },
+        ic: &[],
+    }
+}
+```
+
+---
+
+## Troubleshooting
+
+| Problem | Likely Cause | Solution |
+|---------|-------------|----------|
+| **WASM binary too large (>64KB)** | Accidental `std` dependency | Ensure all dependencies are `no_std`-compatible. Check with `cargo tree` for `std` features. |
+| **Instruction budget exceeded** | Too many pairing pairs | Keep the number of `(G1, G2)` pairs in a single `pairing_check` call under 10 for typical budgets. |
+| **Compilation error: `use of undeclared crate or module`** | Missing dependency | Double-check your `Cargo.toml` includes `soroban-zk-std` and `soroban-zk-core`. |
+| **`pairing_check` returns `InvalidInput`** | Empty pairs slice | Ensure your pairs array has at least one `(G1, G2)` tuple. |
+
+---
+
+## Next Steps
+
+- **Explore the [API Reference](./cap0075-integration-guide.mdx)** for advanced usage of pairing checks, Poseidon2, and scalar field conversion.
+- **Learn about [Polynomial Operations](./polynomial-operations.mdx)** for building custom ZK circuits.
+- **Review the [ASP Integration Guide](./ASP_Integration.mdx)** to understand how to configure compliance workflows with Association Set Providers.
+- **Check the [Shielded Asset Template](../contracts/shielded-asset-template/)** for a complete private token implementation.

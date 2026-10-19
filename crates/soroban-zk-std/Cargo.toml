@@ -1,0 +1,54 @@
+[package]
+name = "soroban-zk-std"
+version = "0.1.4"
+edition = "2021"
+description = "A high-performance cryptographic standard library for Stellar Protocol 25 ZK-Primitives."
+repository = "https://github.com/georgegoldman/Soroban-ZK-Std"
+readme = "README.md"
+keywords = ["stellar", "soroban", "zk", "cryptography", "zero-knowledge"]
+categories = ["cryptography", "no-std", "wasm"]
+license.workspace = true
+
+[lib]
+crate-type = ["lib"]
+
+[features]
+default = []
+std = ["soroban-sdk/hazmat-crypto"] # or however you want to name it
+# Use the pure-software (arkworks) pairing check instead of the native
+# CAP-0075 host function. Enable this for environments without the Soroban host.
+software-fallback = []
+
+[[bin]]
+name = "gen_vectors"
+path = "src/bin.rs"
+required-features = ["std"]  # Only builds when "std" feature is enabled
+
+
+[dependencies]
+# Inherited from workspace (no_std enabled)
+soroban-sdk = { workspace = true, features = ["hazmat-crypto"]}
+ethnum = { workspace = true }
+soroban-zk-core = { workspace = true }
+
+# Math & Crypto (Strictly no_std)
+
+
+ark-bn254 = { version = "0.6.0", default-features = false, features = ["curve"] }
+ark-ff = { version = "0.6.0", default-features = false }
+ark-ec = { version = "0.6.0", default-features = false }
+num-bigint = { version = "0.5.1", default-features = false }
+
+[dev-dependencies]
+sha2 = "0.10"
+ark-bn254 = "0.6.0"
+ark-ec = "0.6.0"
+ark-groth16 = "0.6.0"
+ark-relations = "0.6.0"
+ark-snark = "0.6.0"
+ark-ff = "0.6.0"
+ark-std = "0.6.0"
+soroban-sdk = { workspace = true, features = ["testutils"] }
+
+[[bench]]
+name = "instruction_cost"
